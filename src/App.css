@@ -25,4 +25,31 @@
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #A1A2A5;
+}
+
+.form-container div {
+  margin: 20px;
+}
+
+.yellow-text {
+  color: #F3F804;
+}
+
+.red-text {
+  color: #FD0202;
+}
