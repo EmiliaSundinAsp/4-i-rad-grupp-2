@@ -1,0 +1,47 @@
+// lägga till i ts "strictPropertyInitialization": false,
+
+export default class MoveHandler {
+  matrix: Array<Array<string>>;
+  currentPlayerColor: string;
+  gameOver: boolean;
+  isADraw: boolean;
+  winner: string | boolean;
+  stateUpdater: Function;
+
+
+
+  makeMove(color: string, column: number): boolean {
+    
+    if (this.gameOver) { return false; }
+
+    if (color !== 'X' && color !== 'O') { return false; }
+
+    if (color !== this.currentPlayerColor) { return false; }
+
+    if (isNaN(column)) { return false; }
+
+    if (column < 0 || column >= this.matrix[0].length) { return false; }
+
+    let row = -1;
+    for (let r = this.matrix.length - 1; r >= 0; r--) {
+      if (this.matrix[r][column] === ' ') {
+        row = r;
+        break;
+      }
+    }
+
+    if (row === -1) { return false; }
+
+    this.matrix[row][column] = color;
+
+    this.currentPlayerColor = this.currentPlayerColor === 'X' ? 'O' : 'X';
+
+    //this.winner = this.winCheck();
+    //this.isADraw = this.drawCheck();
+    this.gameOver = !!(this.winner || this.isADraw);
+
+    this.stateUpdater(); //----------------------------------------------------------------------
+
+    return true;
+  }
+}
