@@ -2,6 +2,7 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LandingPage from './views/landingPage';
+
 // import PlayerVsPlayerComponent from './views/PlayerVsPlayerComponent'
 
 const App: React.FC = () => {
