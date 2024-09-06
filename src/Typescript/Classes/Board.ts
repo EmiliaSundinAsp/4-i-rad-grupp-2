@@ -8,4 +8,14 @@ export default class Board {
 			Array.from({ length: 7 }, () => ' ')
 		);
   }
+
+  // Function to render the game board in the console
+  render() {
+		const line = '\n' + '-'.repeat(29) + '\n';
+		console.log(
+			line +
+			this.gameBoard.map(row =>
+				row.map(column => `| ${column} `).join('') + '|').join(line) + line
+		);
+	}
 }
