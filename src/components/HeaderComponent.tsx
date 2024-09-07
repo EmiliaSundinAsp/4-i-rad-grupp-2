@@ -1,5 +1,5 @@
 import '../App.css';
-import logo from '../assets/logosvg.svg';
+import logo from '../assets/logo2.svg';
 
 
 const HeaderComponent: React.FC = () => {

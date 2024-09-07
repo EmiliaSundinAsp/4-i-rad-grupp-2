@@ -20,18 +20,20 @@ const PlayerVsPlayerComponent: React.FC = () => {
     <>
       <HeaderComponent />
       <div className="form-container">
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="yellow-player">Enter <span className="yellow-text">yellow</span> player name:</label><br />
-            <input id="yellow-player" type="text" value={playerXName} onChange={(e) => setPlayerXName(e.target.value)} required />
-          </div>
-          <div>
-            <label htmlFor="red-player">Enter <span className="red-text">red</span> player name:</label><br />
-            <input type="text" id="red-player" value={playerOName} onChange={(e) => setPlayerOName(e.target.value)} required />
-          </div>
+        <div className="inside-form-container">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="yellow-player">Enter <span className="yellow-text">yellow</span> player name:</label><br />
+              <input id="yellow-player" type="text" value={playerXName} onChange={(e) => setPlayerXName(e.target.value)} required />
+            </div>
+            <div>
+              <label htmlFor="red-player">Enter <span className="red-text">red</span> player name:</label><br />
+              <input type="text" id="red-player" value={playerOName} onChange={(e) => setPlayerOName(e.target.value)} required />
+            </div>
 
-        </form>
-        <button type="submit">Start Game</button>
+          </form>
+          <button className="start-game-button" type="submit">Start Game</button>
+        </div>
       </div>
     </>
   )
