@@ -10,15 +10,20 @@ const Board = () => {
   // Function to render the board as JSX
   const renderBoard = () => {
     return (
-      <div>
+      <div className='game-board'>
         {Board.map((row, rowIndex) => (
-          <div key={rowIndex}>
+          <div key={rowIndex} className='row'>
             {row.map((column, colIndex) => (
-              <span key={colIndex}>
-                {`| ${column}`}
-              </span>
+              <div key={colIndex} onClick={() => handleColumnClick(colIndex)} className='cell'>
+                {column === 'R' ? (
+                  <div className='piece red-piece' />
+                ) : column === 'Y' ? (
+                    <div className='piece yellow-piece' />
+                  ) : (
+                      <div className='piece empty-piece' />
+                )}
+              </div>
             ))}
-            <span>|</span>
           </div>
         ))}
       </div>
