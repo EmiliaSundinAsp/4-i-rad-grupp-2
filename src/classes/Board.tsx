@@ -1,10 +1,4 @@
-import { useState } from 'react';
-
-
-
-/*
-gameBoard: string[][]; // Creates the game board, a 2-dimensional array
-*/
+import React, { useState } from 'react';
 
 const Board = () => {
   // Creates and initialize the game board using state
@@ -13,15 +7,24 @@ const Board = () => {
       Array.from({ length: 7 }, () => ' '))
   );
 }
-/*
-constructor() {
-  // Initializes the game bord with 7 columns and 6 rows
-  this.gameBoard = Array.from({ length: 6 }, () =>
-    Array.from({ length: 7 }, () => ' ')
+
+// Function to render the board as JSX
+const renderBoard = () => {
+  return (
+    <div>
+      {Board.map((row, rowIndex) => (
+        <div key={rowIndex}>
+          {row.map((column, colIndex) => (
+            <span key={colIndex}>
+              {`| ${column}`}
+            </span>
+          ))}
+          <span>|</span>
+        </div>
+      ))}
+    </div>
   );
 }
-*/
-
 /*
   // Function to render the game board in the console
 render() {
@@ -33,3 +36,5 @@ render() {
   );
 }
   */
+
+export default Board;
