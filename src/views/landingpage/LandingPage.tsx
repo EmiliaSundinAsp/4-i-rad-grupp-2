@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import HeaderComponent from '../components/HeaderComponent';
+import HeaderComponent from '../../components/headercomponent/HeaderComponent';
+import './LandingPage.css';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const LandingPage: React.FC = () => {
       <HeaderComponent />
       <div className="landing-container">
 
-        
+
         <div className="button-group">
           <button onClick={() => navigate('/player-vs-player')}>
             Player vs Player
