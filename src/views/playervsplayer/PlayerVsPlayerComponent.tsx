@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import HeaderComponent from "../../components/headercomponent/HeaderComponent";
 import './PlayerVsPlayer.css';
 
-
-
 const PlayerVsPlayerComponent: React.FC = () => {
   const [playerXName, setPlayerXName] = useState<string>('');
   const [playerOName, setPlayerOName] = useState<string>('');
@@ -31,18 +29,12 @@ const PlayerVsPlayerComponent: React.FC = () => {
               <label htmlFor="red-player">Enter <span className="red-text">red</span> player name:</label><br />
               <input type="text" id="red-player" value={playerOName} onChange={(e) => setPlayerOName(e.target.value)} required />
             </div>
-            <div>
-              <button className="start-game-button" type="submit">Start Game</button>
-            </div>
-
+            <button className="start-game-button" type="submit">Start Game</button>
           </form>
-
         </div>
       </div>
     </>
-  )
-
+  );
 }
-
 
 export default PlayerVsPlayerComponent;
