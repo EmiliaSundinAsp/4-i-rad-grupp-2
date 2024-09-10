@@ -122,3 +122,49 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 }
+
+/* CSS for Board */
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: blue;
+  padding: 2em;
+  width: 50vw;
+  border-radius: 3%;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 7em;
+  height: 7em;
+  border: 0.0625em solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+}
+
+.piece {
+  width: 6em;
+  height: 6em;
+  border-radius: 50%;
+}
+
+.red-piece {
+  background-color: red;
+}
+
+.yellow-piece {
+  background-color: yellow;
+}
+
+.empty-piece {
+  background-color: #A1A2A5;
+}
+
+/* End to Board CSS*/
