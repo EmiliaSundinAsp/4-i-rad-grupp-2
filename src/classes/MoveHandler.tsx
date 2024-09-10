@@ -1,73 +1,24 @@
-import Board from "./Board.js";
-import Game from "./Game.js";
-import Player from "./Player.js";
+import Player from './Player';
 
 export default class MoveHandler {
-  board: Board;
+  boardState: string[][];
   players: Player[];
-  game: Game;
-  stateUpdater: Function;
+  updateState: (newBoardState: string[][]) => void;
 
-
-  constructor(board: Board, players: Player[], game: Game,stateUpdater: Function,) {
-    this.board = board;
+  constructor(boardState: string[][], players: Player[], updateState: (newBoardState: string[][]) => void) {
+    this.boardState = boardState;
     this.players = players;
-    this.game = game;
-    this.stateUpdater = stateUpdater;
+    this.updateState = updateState;
   }
 
-  makeMove(column: number): boolean {
-    if (this.game.gameOver) {
-      return false;
-    }
-
-    const currentPlayer = this.game.currentPlayer;
-    let row: number | undefined;
-
-
-    if (currentPlayer.computerMove) {
-      column = currentPlayer.makeComputerMove();
-    }
-
-    if (isNaN(column) || column < 0 || column >= this.board.gameBoard[0].length) {
-      //console.log('Ogiltig kolumn!');
-      alert('Ogiltig kolumn!');
-      return false;
-    }
-
-    for (row = this.board.gameBoard.length - 1; row >= 0; row--) {
-      if (this.board.gameBoard[row][column] === ' ') {
-        this.board.gameBoard[row][column] = currentPlayer.symbol;
-        return this.#checkGameState(currentPlayer);
+  makeMove(column: number, currentPlayer: Player): boolean {
+    for (let row = this.boardState.length - 1; row >= 0; row--) {
+      if (this.boardState[row][column] === ' ') {
+        this.boardState[row][column] = currentPlayer.symbol;
+        this.updateState(this.boardState);
+        return true;
       }
     }
-
-    //console.log('Kolumnen är full! Vänligen välj en annan kolumn.');
     return false;
-  }
-  #checkGameState(currentPlayer: Player): boolean {
-    const winner = this.game.winChecker.checkForWin();
-    const isDraw = this.game.winChecker.checkForDraw();
-
-    this.board.render();
-
-    if (winner === currentPlayer.symbol) {
-      this.game.gameOver = true;
-      //console.log(`Grattis ${currentPlayer.name}, du vann med ${currentPlayer.symbol}!`);
-      alert(`Grattis ${currentPlayer.name}, du vann med ${currentPlayer.symbol}!`);
-    } else if (isDraw) {
-      this.game.gameOver = true;
-      //console.log('Ingen vinnare, det blev oavgjort...');
-      alert('Ingen vinnare, det blev oavgjort...');
-    } else {
-      this.game.currentPlayer = this.game.currentPlayer === this.game.playerX ? this.game.playerO : this.game.playerX;
-      //console.log(`Nästa spelare är ${this.game.currentPlayer.name} med ${this.game.currentPlayer.symbol}.`);
-      
-      //alert(`Nästa spelare är ${this.game.currentPlayer.name} med ${this.game.currentPlayer.symbol}.`);
-    }
-
-    this.stateUpdater();
-
-    return true;
   }
 }

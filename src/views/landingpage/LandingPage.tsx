@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import HeaderComponent from '../components/headercomponent/HeaderComponent';
+import HeaderComponent from '../../components/headercomponent/HeaderComponent';
+import './LandingPage.css';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
