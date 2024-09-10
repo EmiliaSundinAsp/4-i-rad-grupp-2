@@ -43,8 +43,11 @@ const Game: React.FC = () => {
   const handleCellClick = (column: number) => {
     if (gameOver || !moveHandler) return;
 
-    const wasMoveSuccessful = moveHandler.makeMove(column, currentPlayer);
-    if (wasMoveSuccessful) {
+    const moveResult = moveHandler.makeMove(column, currentPlayer);
+    if (typeof moveResult === 'string') {
+      
+      alert(moveResult);
+    } else if (moveResult === true) {
       const winner = winChecker?.checkForWin();
       if (winner) {
         setGameOver(true);
