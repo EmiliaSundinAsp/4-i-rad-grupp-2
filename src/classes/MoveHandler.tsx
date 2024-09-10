@@ -62,7 +62,7 @@ export default class MoveHandler {
     } else {
       this.game.currentPlayer = this.game.currentPlayer === this.game.playerX ? this.game.playerO : this.game.playerX;
       //console.log(`Nästa spelare är ${this.game.currentPlayer.name} med ${this.game.currentPlayer.symbol}.`);
-      
+
       //alert(`Nästa spelare är ${this.game.currentPlayer.name} med ${this.game.currentPlayer.symbol}.`);
     }
 

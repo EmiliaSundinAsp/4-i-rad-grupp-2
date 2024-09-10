@@ -15,7 +15,7 @@ export default class Game {
   constructor() {
     this.board = new Board();
     this.gameOver = false;
-    // this.createPlayer();
+    this.createPlayer();
 
     while (true) {
       this.board = new Board();
@@ -30,7 +30,7 @@ export default class Game {
       } else {
         const changeNames = this.askYesOrNo('Do you want to start the game with new names? (yes/no): ');
         if (changeNames === 'yes') {
-          // this.createPlayer();
+          this.createPlayer();
           this.resetGame();
           continue;
         } else {
@@ -58,33 +58,33 @@ export default class Game {
     return 'yes'; // or 'no'
   }
 
-  // createPlayer() {
-  //   console.clear();
-  //   console.log('Welcome to Four-in-a-Row!');
+  createPlayer() {
+    console.clear();
+    console.log('Welcome to Four-in-a-Row!');
 
-  //   const playerXName = 'Player X'; // Replace with actual UI input
-  //   const playerOType: 'yes' | 'no' = 'no'; // Replace with actual UI input
+    const playerXName = 'Player X'; // Replace with actual UI input
+    const playerOType: 'yes' | 'no' = 'no'; // Replace with actual UI input
 
-  //   let playerOName: string;
-  //   let isComputer: boolean = false;
+    let playerOName: string;
+    let isComputer: boolean = false;
 
-  //   if (playerOType === 'yes') {
-  //     playerOName = 'Computer';
-  //     isComputer = true;
-  //   } else {
-  //     playerOName = 'Player O'; // Replace with actual UI input
-  //   }
+    if (playerOType === 'yes') {
+      playerOName = 'Computer';
+      isComputer = true;
+    } else {
+      playerOName = 'Player O'; // Replace with actual UI input
+    }
 
-  //   this.playerX = new Player(playerXName, 'X', this.board, false);
-  //   this.playerO = new Player(playerOName, 'O', this.board, isComputer);
+    this.playerX = new Player(playerXName, 'X', this.board, false);
+    this.playerO = new Player(playerOName, 'O', this.board, isComputer);
 
-  //   this.currentPlayer = this.playerX;
+    this.currentPlayer = this.playerX;
 
-  //   console.log(`${this.currentPlayer.name} starts the game as ${this.currentPlayer.symbol}.`);
+    console.log(`${this.currentPlayer.name} starts the game as ${this.currentPlayer.symbol}.`);
 
-  //   // Placeholder for UI interaction
-  //   console.log('Press Enter to continue...');
-  // }
+    // Placeholder for UI interaction
+    console.log('Press Enter to continue...');
+  }
 
   startGameLoop() {
     while (!this.gameOver) {
