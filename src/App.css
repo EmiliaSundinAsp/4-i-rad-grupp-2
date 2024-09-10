@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 120px;
   background-color: #A1A2A5;
   position: fixed;
   width: 100vw;
@@ -17,7 +17,7 @@
 }
 
 .logo {
-  height: 8em;
+  height: 6em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -73,6 +73,7 @@
 }
 
 .form-container {
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -121,16 +122,47 @@
 }
 
 .start-game-button {
-  padding: 9px;
-  margin: 4px;
-  border-radius: 5px;
-  font-weight: bolder;
+  padding: 15px 30px;
+  border-radius: 8px;
+  background-color: #6c757d;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.start-game-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-3px);
+
+}
+
+.start-game-button:active {
+  transform: translateY(1px);
+
 }
 
 @media (max-width: 600px) {
+  .form-container {
+    margin-top: 20px;
+  }
   .form-container label {
-  font-size: 18px;
+  font-size: 21px;
+  font-weight: 100;
+  
+}
+.yellow-player-label {
+  background-color: #F3F804;
+  border-radius: 5px;
+  padding: 4px;
+}
+.red-player-label {
+  background-color: #FD0202;
+  border-radius: 5px;
+  padding: 4px;
 }
 .form-container input {
   width: 210px;
@@ -138,11 +170,23 @@
   border-radius: 5px;
   margin: 5px;
 }
+.logo {
+  height: 4em;
+}
+.start-game-button {
+  padding: 9px 16px;
+  font-size: 15px;
+  font-weight: normal;
+}
 }
 
 @media (max-width: 450px) {
+  .form-container {
+    margin-top: 2px;
+  }
   .form-container label {
-  font-size: 12px;
+  font-size: 15px;
+  font-weight: 100;
   margin: 2px;
 }
 .form-container input {
@@ -152,12 +196,9 @@
   margin: 2px;
 }
 .start-game-button {
-  padding: 3px;
-  margin: 2px;
-  font-size: 10px;
-  border-radius: 5px;
-  font-weight: 600;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 6px 12px;
+  font-size: 15px;
+  font-weight: normal;
 }
 }
 
