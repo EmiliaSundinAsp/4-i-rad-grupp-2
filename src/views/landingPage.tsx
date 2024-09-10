@@ -9,7 +9,7 @@ const LandingPage: React.FC = () => {
       <HeaderComponent />
       <div className="landing-container">
 
-        <h1>Welcome to Connect four</h1>
+        
         <div className="button-group">
           <button onClick={() => navigate('/player-vs-player')}>
             Player vs Player
