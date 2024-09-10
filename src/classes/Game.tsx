@@ -3,6 +3,7 @@ import Board from './Board';
 import Player from './Player';
 import MoveHandler from './MoveHandler';
 import WinChecker from './WinChecker';
+import HeaderComponent from '../components/HeaderComponent';
 
 const Game: React.FC = () => {
   const [boardState, setBoardState] = useState<string[][]>(
@@ -54,10 +55,23 @@ const Game: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Game Board</h1>
-      <Board boardState={boardState} onCellClick={handleCellClick} />
-      <button onClick={resetGame}>Reset Game</button>
+    <div className='container'>
+      <HeaderComponent />
+      <div className='left-column'>
+        <div className='player-turn-container'>
+          <h1 className='player-turn'>Players turn</h1>
+        </div>
+        <div className='btn-container'>
+          <button onClick={resetGame} className='reset-btn'>Reset Game</button>
+        </div>
+      </div>
+      <div className='right-column'>
+        <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} /></div>
+        <div className='btn-container'>
+          <button className='quit-game-btn'>Quit game</button>
+        </div>
+
+      </div>
     </div>
   );
 };
