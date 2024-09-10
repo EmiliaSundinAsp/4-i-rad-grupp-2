@@ -1,60 +1,43 @@
-import Board from "./Board.js";
-import WinChecker from "./WinChecker.js";
+import WinChecker from './WinChecker';
 
 export default class Player {
-
   name: string;
   symbol: 'X' | 'O';
-  board: Board;
-  computerMove: boolean;
-  difficulty: 'easy' | 'hard';
-  winChecker: WinChecker;
 
-  constructor(name: string, symbol: 'X' | 'O', board: Board, computerMove: boolean = false, difficulty: 'easy' | 'hard' = 'easy') {
+  constructor(name: string, symbol: 'X' | 'O') {
     this.name = name;
     this.symbol = symbol;
-    this.board = board;
-    this.computerMove = computerMove;
-    this.difficulty = difficulty;
-    this.winChecker = new WinChecker(board);
   }
 
-  makeComputerMove(): number {
-    return this.difficulty === 'easy' ? this.makeEasyMove() : this.makeHardMove();
+  makeComputerMove(boardState: string[][], difficulty: 'easy' | 'hard'): number {
+    return difficulty === 'easy' ? this.makeEasyMove(boardState) : this.makeHardMove(boardState);
   }
 
-
-
-  makeEasyMove(): number {
-
-    const availableColumns = this.board.gameBoard[0]
+  private makeEasyMove(boardState: string[][]): number {
+    const availableColumns = boardState[0]
       .map((_, colIndex) => colIndex)
-      .filter(colIndex => this.board.gameBoard[0][colIndex] === ' ');
+      .filter(colIndex => boardState[0][colIndex] === ' ');
 
     if (availableColumns.length === 0) {
-      throw new Error('Ingen ledig kolumn.');
+      throw new Error('No available columns.');
     }
 
-    const randomColumn = availableColumns[Math.floor(Math.random() * availableColumns.length)];
-    return randomColumn;
-
+    return availableColumns[Math.floor(Math.random() * availableColumns.length)];
   }
 
-  makeHardMove(): number {
-
-    return this.makeEasyMove();
+  private makeHardMove(boardState: string[][]): number {
+    // Implement harder move logic here
+    return this.makeEasyMove(boardState); // Temporary: Implement more complex logic for 'hard'
   }
 
-  isWinningMove(column: number, symbol: 'X' | 'O'): boolean {
-    for (let row = this.board.gameBoard.length - 1; row >= 0; row--) {
-      if (this.board.gameBoard[row][column] === ' ') {
-        this.board.gameBoard[row][column] = symbol;
-        const win = this.winChecker.checkForWin() === symbol;
-        this.board.gameBoard[row][column] = ' ';
-        if (win) {
-          return true;
-        }
-        break;
+  isWinningMove(boardState: string[][], column: number, symbol: 'X' | 'O'): boolean {
+    for (let row = boardState.length - 1; row >= 0; row--) {
+      if (boardState[row][column] === ' ') {
+        boardState[row][column] = symbol;
+        const winChecker = new WinChecker(boardState);
+        const win = winChecker.checkForWin() === symbol;
+        boardState[row][column] = ' ';
+        return win;
       }
     }
     return false;
