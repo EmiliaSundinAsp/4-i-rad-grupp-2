@@ -10,6 +10,7 @@ const Board = () => {
   // Function to render the board as JSX
   const renderBoard = () => {
     return (
+      <div className='board-container'>
       <div className='game-board'>
         {Board.map((row, rowIndex) => (
           <div key={rowIndex} className='row'>
@@ -26,6 +27,7 @@ const Board = () => {
             ))}
           </div>
         ))}
+      </div>
       </div>
     );
   };
