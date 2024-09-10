@@ -23,11 +23,11 @@ const PlayerVsPlayerComponent: React.FC = () => {
         <div className="inside-form-container">
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="yellow-player">Enter <span className="yellow-text">yellow</span> player name:</label><br />
+              <label htmlFor="yellow-player" className="yellow-player-label">Enter <span className="yellow-text">yellow</span> player name:</label><br />
               <input id="yellow-player" type="text" value={playerXName} onChange={(e) => setPlayerXName(e.target.value)} required />
             </div>
             <div>
-              <label htmlFor="red-player">Enter <span className="red-text">red</span> player name:</label><br />
+              <label htmlFor="red-player" className="red-player-label">Enter <span className="red-text">red</span> player name:</label><br />
               <input type="text" id="red-player" value={playerOName} onChange={(e) => setPlayerOName(e.target.value)} required />
             </div>
 
