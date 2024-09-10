@@ -215,9 +215,8 @@
   flex-direction: column;
   align-items: center;
   background-color: blue;
-  padding: 2em;
-  width: 800px;
-  height: 720px;
+  padding: 1.5em;
+  width: 650px;
   border-radius: 3%;
 }
 
@@ -226,8 +225,8 @@
 }
 
 .cell {
-  width: 7em;
-  height: 7em;
+  width: 5em;
+  height: 5em;
   border: 0.0625em solid blue;
   display: flex;
   justify-content: center;
@@ -236,8 +235,8 @@
 }
 
 .piece {
-  width: 6em;
-  height: 6em;
+  width: 4em;
+  height: 4em;
   border-radius: 50%;
 }
 
