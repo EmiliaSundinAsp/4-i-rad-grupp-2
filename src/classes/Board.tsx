@@ -12,7 +12,7 @@ const Board: React.FC<BoardProps> = ({ boardState, onCellClick }) => {
             <div
               key={colIndex}
               onClick={() => onCellClick(colIndex)}
-              className={`cell ${cell === 'R' ? 'red-piece' : cell === 'Y' ? 'yellow-piece' : 'empty-piece'}`}
+              className={`cell ${cell === 'X' ? 'red-piece' : cell === 'O' ? 'yellow-piece' : 'empty-piece'}`}
             />
           ))}
         </div>
