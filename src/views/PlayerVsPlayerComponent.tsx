@@ -30,9 +30,9 @@ const PlayerVsPlayerComponent: React.FC = () => {
               <label htmlFor="red-player">Enter <span className="red-text">red</span> player name:</label><br />
               <input type="text" id="red-player" value={playerOName} onChange={(e) => setPlayerOName(e.target.value)} required />
             </div>
-
+              <button className="start-game-button" type="submit">Start Game</button>
           </form>
-          <button className="start-game-button" type="submit">Start Game</button>
+
         </div>
       </div>
     </>
