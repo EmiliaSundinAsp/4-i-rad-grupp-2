@@ -49,7 +49,6 @@
   align-items: center;
   justify-content: center;
   padding: 15px 30px;
-  border: none;
   border-radius: 8px;
   background-color: #6c757d;
   color: #fff;
@@ -70,7 +69,7 @@
 
 .button-group button:active {
   transform: translateY(1px);
-  /* Slightly press down the button on click */
+
 }
 
 .form-container {
@@ -85,7 +84,6 @@
 
 .inside-form-container {
   width: auto;
-  /* border: 5px solid #0009E9; */
   padding: 20px;
   border-radius: 8px;
 }
