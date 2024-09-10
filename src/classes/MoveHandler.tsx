@@ -9,7 +9,7 @@ export default class MoveHandler {
   stateUpdater: Function;
 
 
-  constructor(board: Board, players: Player[], game: Game,stateUpdater: Function,) {
+  constructor(board: Board, players: Player[], game: Game, stateUpdater: Function,) {
     this.board = board;
     this.players = players;
     this.game = game;
@@ -30,8 +30,7 @@ export default class MoveHandler {
     }
 
     if (isNaN(column) || column < 0 || column >= this.board.gameBoard[0].length) {
-      //console.log('Ogiltig kolumn!');
-      alert('Ogiltig kolumn!');
+      alert('invalid column!');
       return false;
     }
 
@@ -53,16 +52,12 @@ export default class MoveHandler {
 
     if (winner === currentPlayer.symbol) {
       this.game.gameOver = true;
-      //console.log(`Grattis ${currentPlayer.name}, du vann med ${currentPlayer.symbol}!`);
-      alert(`Grattis ${currentPlayer.name}, du vann med ${currentPlayer.symbol}!`);
+      alert(`Congratulations ${currentPlayer.name}, you won with ${currentPlayer.symbol}!`);
     } else if (isDraw) {
       this.game.gameOver = true;
-      //console.log('Ingen vinnare, det blev oavgjort...');
-      alert('Ingen vinnare, det blev oavgjort...');
+      alert('No winner, it was a draw...');
     } else {
-      this.game.currentPlayer = this.game.currentPlayer === this.game.playerX ? this.game.playerO : this.game.playerX;
-      //console.log(`Nästa spelare är ${this.game.currentPlayer.name} med ${this.game.currentPlayer.symbol}.`);
-      
+      this.game.currentPlayer = this.game.currentPlayer === this.game.playerX ? this.game.playerO : this.game.playerX;      
       //alert(`Nästa spelare är ${this.game.currentPlayer.name} med ${this.game.currentPlayer.symbol}.`);
     }
 
