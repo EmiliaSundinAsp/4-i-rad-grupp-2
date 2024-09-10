@@ -4,26 +4,7 @@
   margin: 0;
 }
 
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 120px;
-  background-color: #A1A2A5;
-  position: fixed;
-  width: 100vw;
-  top: 0;
-  z-index: 1000;
-}
 
-.logo {
-  height: 6em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
 
 .landing-container {
   display: flex;
