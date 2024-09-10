@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeaderComponent from "../../components/headercomponent/HeaderComponent";
+import './PlayerVsPlayer.css';
 
 
 

@@ -10,10 +10,14 @@ const HeaderComponent: React.FC = () => {
   return (
     <>
       <header className='header'>
-        <img src={logo} alt="Logo" className="logo" />
-        <Link to='/login' className='login-link'>
-          <FontAwesomeIcon className='login-icon' icon={faUser} size="2x" />
-        </Link>
+        <div className='logo-container'>
+          <img src={logo} alt="Logo" className="logo" />
+        </div>
+        <div className='login-link'>
+          <Link to='/login'>
+            <FontAwesomeIcon icon={faUser} size="2x" className='login-icon' />
+          </Link>
+        </div>
       </header>
     </>
   )
