@@ -27,7 +27,7 @@ const PlayerVsComputer: React.FC = () => {
     }
 
     navigate('/game', {
-      state: { playerXName, color, difficulty },
+      state: { playerXName, color, difficulty, isComputerPlayer: true },
     });
   };
 

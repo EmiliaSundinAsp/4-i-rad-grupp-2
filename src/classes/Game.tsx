@@ -16,6 +16,10 @@ const Game: React.FC = () => {
   const playerOName = state?.playerOName || 'Player O';
 
 
+  const difficulty = state?.difficulty || 'easy';
+  const isComputerPlayer = state?.isComputerPlayer || false;
+
+
   const [boardState, setBoardState] = useState<string[][]>(
     Array.from({ length: 6 }, () => Array.from({ length: 7 }, () => ' '))
   );
@@ -49,28 +53,56 @@ const Game: React.FC = () => {
   const handleCellClick = (column: number) => {
     if (gameOver || !moveHandler) return;
 
-    const moveResult = moveHandler.makeMove(column, currentPlayer);
-    if (typeof moveResult === 'string') {
+  if (currentPlayer === playerO && isComputerPlayer) {
+    const computerMove = playerO.makeComputerMove(boardState, difficulty);
+    const moveResult = moveHandler.makeMove(computerMove, playerO);
 
+    // after 
+    if (typeof moveResult === 'string') {
       alert(moveResult);
     } else if (moveResult === true) {
       const winner = winChecker?.checkForWin();
       if (winner) {
-        setGameOver(true); //added win count for player 55-59
+        setGameOver(true);
         if (winner === 'X') {
           playerX.addWin();
-        }else if (winner === 'O') {
+        } else if (winner === 'O') {
           playerO.addWin();
         }
         alert(`Player ${winner} (${winner === 'X' ? playerX.name : playerO.name}) wins!`);
       } else if (winChecker?.checkForDraw()) {
         setGameOver(true);
-        alert('It\'s a draw!');
+        alert("It's a draw!");
       } else {
-        setCurrentPlayer(currentPlayer === playerX ? playerO : playerX);
+        // change turn
+        setCurrentPlayer(playerX);
       }
     }
-  };
+  } else {
+    //human
+    const moveResult = moveHandler.makeMove(column, currentPlayer);    
+    if (typeof moveResult === 'string') {
+      alert(moveResult);
+    } else if (moveResult === true) {
+      const winner = winChecker?.checkForWin();
+      if (winner) {
+        setGameOver(true);
+        if (winner === 'X') {
+          playerX.addWin();
+        } else if (winner === 'O') {
+          playerO.addWin();
+        }
+        alert(`Player ${winner} (${winner === 'X' ? playerX.name : playerO.name}) wins!`);
+      } else if (winChecker?.checkForDraw()) {
+        setGameOver(true);
+        alert("It's a draw!");
+      } else {
+        // Byt till datorn om det inte är game over
+        setCurrentPlayer(playerO);
+      }
+    }
+  }
+};
 
   const handleQuitGame = () => {
     const userConfirmed = window.confirm("Are you sure you want to quit the game?");
