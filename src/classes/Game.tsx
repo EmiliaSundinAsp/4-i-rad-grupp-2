@@ -73,9 +73,9 @@ const Game: React.FC = () => {
       <HeaderComponent />
       <div className='left-column'>
         <div className='player-turn-container'>
-          <h1 className='player-turn'>Players turn</h1>
+          <h1 className='player-turn'>{currentPlayer.name} turn</h1>
         </div>
-        <div> 
+        <div>
           <h2>ScoreBoard</h2>
           <p>{playerX.name}: {playerX.wins} wins</p>
           <p>{playerO.name}: {playerO.wins} wins</p>
