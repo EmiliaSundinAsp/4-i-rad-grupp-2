@@ -27,7 +27,11 @@ export default class Player {
       throw new Error('No available columns.');
     }
 
-    return availableColumns[Math.floor(Math.random() * availableColumns.length)];
+    //checks if it is reached and selects a number
+    const chosenColumn = availableColumns[Math.floor(Math.random() * availableColumns.length)];
+    console.log('computer chosen column', chosenColumn);
+
+    return chosenColumn;
   }
 
   private makeHardMove(boardState: string[][]): number {
