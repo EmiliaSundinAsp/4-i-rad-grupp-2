@@ -8,21 +8,45 @@ import HeaderComponent from "../../components/headercomponent/HeaderComponent";
 const RegisterComponent: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleRegister = (e: React.FormEvent) => {
+
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const hashedPassword = hashSync(password, 10);
+    try {
+      const response = await fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    const user = {
-      username,
-      hashedPassword,
-    };
+      if (response.ok) {
+        navigate('/login');
+      } else {
+        const data = await response.json();
+        setError(data.message);
+      }
+    } catch (error) {
+      setError('An error occurred during registration. Please try again.');
+    }
+  };
 
-    localStorage.setItem(username, JSON.stringify(user));
-    navigate('/login');
-  }
+
 
   return (
     <>
@@ -40,6 +64,9 @@ const RegisterComponent: React.FC = () => {
           </div>
           <div>
             <button className="register-button" type="submit">Register</button>
+          </div>
+          <div>
+            {error && <p>{error}</p>}
           </div>
         </form>
       </div>
