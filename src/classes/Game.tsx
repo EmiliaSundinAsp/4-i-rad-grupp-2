@@ -5,15 +5,20 @@ import Player from './Player';
 import MoveHandler from './MoveHandler';
 import WinChecker from './winChecker';
 import HeaderComponent from '../components/headercomponent/HeaderComponent';
+import { useNavigate } from 'react-router-dom';
+import LandingPage from '../views/landingpage/LandingPage';
 
 
 const Game: React.FC = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const playerXName = state?.playerXName || 'Player X';
   const playerOName = state?.playerOName || 'Player O';
 
+
   const difficulty = state?.difficulty || 'easy';
   const isComputerPlayer = state?.isComputerPlayer || false;
+
 
   const [boardState, setBoardState] = useState<string[][]>(
     Array.from({ length: 6 }, () => Array.from({ length: 7 }, () => ' '))
@@ -99,6 +104,13 @@ const Game: React.FC = () => {
   }
 };
 
+  const handleQuitGame = () => {
+    const userConfirmed = window.confirm("Are you sure you want to quit the game?");
+    if (userConfirmed) {
+      navigate('/');
+    }
+  };
+
   return (
     <div className='container'>
       <HeaderComponent />
@@ -118,7 +130,7 @@ const Game: React.FC = () => {
       <div className='right-column'>
         <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} /></div>
         <div className='btn-container'>
-          <button className='quit-game-btn'>Quit game</button>
+          <button onClick={handleQuitGame} className='quit-game-btn'>Quit game</button>
         </div>
 
       </div>
