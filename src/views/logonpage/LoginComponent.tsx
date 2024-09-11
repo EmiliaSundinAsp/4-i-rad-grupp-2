@@ -1,5 +1,5 @@
 import { useState } from "react"
-import bcrypt from "bcryptjs";
+import { compareSync } from "bcrypt-ts";
 import HeaderComponent from "../../components/headercomponent/HeaderComponent"
 import { Link, useNavigate } from "react-router-dom";
 import './LoginComponent.css';
@@ -19,10 +19,12 @@ const LoginComponent: React.FC = () => {
     if (storedUser) {
       const user = JSON.parse(storedUser);
 
-      const passwordMatch = bcrypt.compareSync(password, user.hashedPassword);
+      const passwordMatch = compareSync(password, user.hashedPassword);
 
       if (passwordMatch) {
         navigate('/');
+        console.log('Logged in.');
+
       } else {
         setError('Incorrect password, please try again.');
       }

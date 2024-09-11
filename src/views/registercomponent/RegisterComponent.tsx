@@ -1,5 +1,5 @@
 import { useState } from "react"
-import bcrypt from "bcryptjs";
+import { hashSync } from "bcrypt-ts";
 import { useNavigate } from "react-router-dom";
 import './RegisterComponet.css';
 import HeaderComponent from "../../components/headercomponent/HeaderComponent";
@@ -13,7 +13,7 @@ const RegisterComponent: React.FC = () => {
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const hashedPassword = hashSync(password, 10);
 
     const user = {
       username,
