@@ -6,6 +6,7 @@ import LandingPage from './views/landingpage/LandingPage';
 import RegisterComponent from './views/registercomponent/RegisterComponent';
 import Game from './classes/Game';
 import LoginComponent from './views/logonpage/LoginComponent';
+import PlayerVsComputer from './views/playervscomputer/PlayerVsComputerView';
 
 
 const App: React.FC = () => {
@@ -14,10 +15,11 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path='/player-vs-player' element={<PlayerVsPlayerComponent />} />
+
         <Route path='/register' element={<RegisterComponent />} />
         <Route path='/login' element={<LoginComponent />} />
         <Route path='/game' element={<Game />} />
-        {/* <Route path="/computer-vs-player" element={<ComputerVsPlayer />} /> */}
+        <Route path="/player-vs-computer" element={<PlayerVsComputer/>} />
       </Routes>
     </Router>
   );
