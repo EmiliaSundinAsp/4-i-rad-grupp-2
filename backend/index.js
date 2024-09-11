@@ -1,6 +1,7 @@
 import fs from 'fs';
 import express from 'express';
 import crypto from "crypto";
+import cors from 'cors';
 
 
 const salt = "paraplanedasdadasjkdlasdasljasd2uas";
@@ -12,6 +13,9 @@ function getHash(toEncrypt) {
 
 const app = express();
 
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
 
 const imageServer = express();
 imageServer.use(express.static('images'));
@@ -26,15 +30,30 @@ app.get('/api/test', (_req, res) => {
 
 
 app.post('/api/uploadImage', (req, res) => {
-  const { userName, password, encoded } = req.body;
-  const binaryBuffer = Buffer.from(encoded.split('base64')[1], 'base64');
-  const userFolder = './images/' + getHash(userName + password);
+  try {
+    const { userName, password, encoded } = req.body;
+    console.log('Received request to upload image', { userName, encoded });
 
-  fs.mkdirSync(userFolder);
-  fs.writeFileSync(userFolder + '/userProfileImage.jpg', binaryBuffer);
-  fs.writeFileSync(userFolder + '/userData.json',
-    JSON.stringify({ userName }, null, '  '), 'utf-8');
-  res.json({ ok: true });
+    if (!userName || !password || !encoded) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const binaryBuffer = Buffer.from(encoded.split('base64,')[1], 'base64');
+    const userFolder = './images/' + getHash(userName + password);
+
+    console.log('Creating user folder:', userFolder);
+    if (!fs.existsSync(userFolder)) {
+      fs.mkdirSync(userFolder, { recursive: true });
+    }
+
+    fs.writeFileSync(userFolder + '/userProfileImage.jpg', binaryBuffer);
+    fs.writeFileSync(userFolder + '/userData.json', JSON.stringify({ userName }, null, '  '), 'utf-8');
+
+    res.json({ ok: true });
+  } catch (error) {
+    console.error('Error in /api/uploadImage:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 
