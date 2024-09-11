@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { compareSync } from "bcrypt-ts";
 import HeaderComponent from "../../components/headercomponent/HeaderComponent"
 import { Link, useNavigate } from "react-router-dom";
 import './LoginComponent.css';
@@ -11,27 +10,35 @@ const LoginComponent: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const storedUser = localStorage.getItem(username);
+    try {
 
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
+      const response = await fetch('http://localhost:5001/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userName: username, password }),
+      });
 
-      const passwordMatch = compareSync(password, user.hashedPassword);
+      const data = await response.json();
 
-      if (passwordMatch) {
-        navigate('/');
-        console.log('Logged in.');
+      if (response.ok) {
 
+        localStorage.setItem('loggedInUser', username);
+        localStorage.setItem('userProfileData', JSON.stringify(data));
+        navigate('/profile');
       } else {
-        setError('Incorrect password, please try again.');
+        setError(data.error || 'An error occurred during login. Please try again.');
       }
-    } else {
-      setError('Username not found, please try again.');
+    } catch (error) {
+      setError('An error occurred during login. Please try again.');
     }
   }
+
+
   return (
     <>
       <HeaderComponent />
@@ -53,6 +60,9 @@ const LoginComponent: React.FC = () => {
             <Link to='/register'>
               <p className="register-here-link">Register here</p>
             </Link>
+          </div>
+          <div>
+            {error && <p>{error}</p>}
           </div>
         </form>
       </div>
