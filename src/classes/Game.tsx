@@ -99,8 +99,8 @@ const Game: React.FC = () => {
           setGameOver(true);
           alert("It's a draw!");
         } else {
-          // Byt till datorn om det inte är game over
-          setCurrentPlayer(playerO);
+          // change player
+          setCurrentPlayer(currentPlayer === playerX ? playerO : playerX);
         }
       }
     }
