@@ -6,6 +6,7 @@ import MoveHandler from './MoveHandler';
 import WinChecker from './winChecker';
 import HeaderComponent from '../components/headercomponent/HeaderComponent';
 
+
 const Game: React.FC = () => {
   const { state } = useLocation();
   const playerXName = state?.playerXName || 'Player X';
