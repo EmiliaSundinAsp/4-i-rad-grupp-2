@@ -22,7 +22,8 @@ const LoginComponent: React.FC = () => {
       const passwordMatch = compareSync(password, user.hashedPassword);
 
       if (passwordMatch) {
-        navigate('/');
+        localStorage.setItem('loggedInUser', username);
+        navigate('/profile');
         console.log('Logged in.');
 
       } else {
@@ -53,6 +54,9 @@ const LoginComponent: React.FC = () => {
             <Link to='/register'>
               <p className="register-here-link">Register here</p>
             </Link>
+          </div>
+          <div>
+            {error && <p>{error}</p>}
           </div>
         </form>
       </div>

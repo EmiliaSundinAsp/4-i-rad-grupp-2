@@ -5,7 +5,8 @@ import PlayerVsPlayerComponent from './views/playervsplayer/PlayerVsPlayerCompon
 import LandingPage from './views/landingpage/LandingPage';
 import RegisterComponent from './views/registercomponent/RegisterComponent';
 import Game from './classes/Game';
-import LoginComponent from './views/logonpage/LoginComponent';
+import LoginComponent from './views/loginpage/LoginComponent';
+import ProfilePageComponent from './views/profilepage/ProfilePageComponent';
 
 
 const App: React.FC = () => {
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         <Route path='/player-vs-player' element={<PlayerVsPlayerComponent />} />
         <Route path='/register' element={<RegisterComponent />} />
         <Route path='/login' element={<LoginComponent />} />
+        <Route path='/profile' element={<ProfilePageComponent />} />
         <Route path='/game' element={<Game />} />
         {/* <Route path="/computer-vs-player" element={<ComputerVsPlayer />} /> */}
       </Routes>
