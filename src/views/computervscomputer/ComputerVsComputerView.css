@@ -1,0 +1,97 @@
+.computer-vs-computer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #A1A2A5;
+}
+
+.computer-settings-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+
+}
+
+.page-title {
+  font-size: 28px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  margin-bottom: 70px;
+}
+
+.difficulty-selection-heading {
+  font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 10px;
+}
+
+.difficulty-options {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.difficulty-option {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.difficulty-option.difficulty-selected {
+  border: 2px solid #000;
+}
+
+.start-game-button {
+  padding: 15px 30px;
+  border-radius: 8px;
+  background-color: #6c757d;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.start-game-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-3px);
+}
+
+.start-game-button:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+  .computer-settings-form {
+    padding: 20px;
+  }
+
+  .page-title,
+  .difficulty-selection-heading {
+    font-size: 21px;
+  }
+
+  .start-game-button {
+    padding: 9px 16px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 450px) {
+
+  .page-title,
+  .difficulty-selection-heading {
+    font-size: 16px;
+  }
+
+  .start-game-button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}

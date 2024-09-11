@@ -3,12 +3,18 @@ import { useLocation } from 'react-router-dom';
 import Board from './Board';
 import Player from './Player';
 import MoveHandler from './MoveHandler';
-import WinChecker from './WinChecker';
+import WinChecker from './winChecker';
+import HeaderComponent from '../components/headercomponent/HeaderComponent';
+import { useNavigate } from 'react-router-dom';
+import LandingPage from '../views/landingpage/LandingPage';
+
 
 const Game: React.FC = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const playerXName = state?.playerXName || 'Player X';
   const playerOName = state?.playerOName || 'Player O';
+
 
   const [boardState, setBoardState] = useState<string[][]>(
     Array.from({ length: 6 }, () => Array.from({ length: 7 }, () => ' '))
@@ -45,12 +51,17 @@ const Game: React.FC = () => {
 
     const moveResult = moveHandler.makeMove(column, currentPlayer);
     if (typeof moveResult === 'string') {
-      
+
       alert(moveResult);
     } else if (moveResult === true) {
       const winner = winChecker?.checkForWin();
       if (winner) {
-        setGameOver(true);
+        setGameOver(true); //added win count for player 55-59
+        if (winner === 'X') {
+          playerX.addWin();
+        }else if (winner === 'O') {
+          playerO.addWin();
+        }
         alert(`Player ${winner} (${winner === 'X' ? playerX.name : playerO.name}) wins!`);
       } else if (winChecker?.checkForDraw()) {
         setGameOver(true);
@@ -61,11 +72,36 @@ const Game: React.FC = () => {
     }
   };
 
+  const handleQuitGame = () => {
+    const userConfirmed = window.confirm("Are you sure you want to quit the game?");
+    if (userConfirmed) {
+      navigate('/');
+    }
+  };
+
   return (
-    <div>
-      <h1>Game Board</h1>
-      <Board boardState={boardState} onCellClick={handleCellClick} />
-      <button onClick={resetGame}>Reset Game</button>
+    <div className='container'>
+      <HeaderComponent />
+      <div className='left-column'>
+        <div className='player-turn-container'>
+          <h1 className='player-turn'>{currentPlayer.name} turn</h1>
+        </div>
+        <div>
+          <h2>ScoreBoard</h2>
+          <p>{playerX.name}: {playerX.wins} wins</p>
+          <p>{playerO.name}: {playerO.wins} wins</p>
+        </div>
+        <div className='btn-container'>
+          <button onClick={resetGame} className='reset-btn'>Reset Game</button>
+        </div>
+      </div>
+      <div className='right-column'>
+        <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} /></div>
+        <div className='btn-container'>
+          <button onClick={handleQuitGame} className='quit-game-btn'>Quit game</button>
+        </div>
+
+      </div>
     </div>
   );
 };
