@@ -4,7 +4,7 @@ import Board from './Board';
 import Player from './Player';
 import MoveHandler from './MoveHandler';
 import WinChecker from './WinChecker';
-import HeaderComponent from '../components/HeaderComponent';
+import HeaderComponent from "../components/headercomponent/HeaderComponent";
 
 const Game: React.FC = () => {
   const { state } = useLocation();
@@ -46,7 +46,7 @@ const Game: React.FC = () => {
 
     const moveResult = moveHandler.makeMove(column, currentPlayer);
     if (typeof moveResult === 'string') {
-      
+
       alert(moveResult);
     } else if (moveResult === true) {
       const winner = winChecker?.checkForWin();
