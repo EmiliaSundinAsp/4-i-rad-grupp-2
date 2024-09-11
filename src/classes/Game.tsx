@@ -3,8 +3,9 @@ import { useLocation } from 'react-router-dom';
 import Board from './Board';
 import Player from './Player';
 import MoveHandler from './MoveHandler';
-import WinChecker from './WinChecker';
-import HeaderComponent from "../components/headercomponent/HeaderComponent";
+import WinChecker from './winChecker';
+import HeaderComponent from '../components/headercomponent/HeaderComponent';
+
 
 const Game: React.FC = () => {
   const { state } = useLocation();
@@ -51,7 +52,12 @@ const Game: React.FC = () => {
     } else if (moveResult === true) {
       const winner = winChecker?.checkForWin();
       if (winner) {
-        setGameOver(true);
+        setGameOver(true); //added win count for player 55-59
+        if (winner === 'X') {
+          playerX.addWin();
+        }else if (winner === 'O') {
+          playerO.addWin();
+        }
         alert(`Player ${winner} (${winner === 'X' ? playerX.name : playerO.name}) wins!`);
       } else if (winChecker?.checkForDraw()) {
         setGameOver(true);
@@ -68,6 +74,11 @@ const Game: React.FC = () => {
       <div className='left-column'>
         <div className='player-turn-container'>
           <h1 className='player-turn'>Players turn</h1>
+        </div>
+        <div> 
+          <h2>ScoreBoard</h2>
+          <p>{playerX.name}: {playerX.wins} wins</p>
+          <p>{playerO.name}: {playerO.wins} wins</p>
         </div>
         <div className='btn-container'>
           <button onClick={resetGame} className='reset-btn'>Reset Game</button>

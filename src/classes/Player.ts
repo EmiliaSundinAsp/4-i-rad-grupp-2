@@ -1,12 +1,17 @@
-import WinChecker from './WinChecker';
+import WinChecker from './winChecker';
 
 export default class Player {
   name: string;
   symbol: 'X' | 'O';
+  wins: number;
 
   constructor(name: string, symbol: 'X' | 'O') {
     this.name = name;
     this.symbol = symbol;
+    this.wins = 0;
+  }
+  addWin() {
+    this.wins +=1;
   }
 
   makeComputerMove(boardState: string[][], difficulty: 'easy' | 'hard'): number {
