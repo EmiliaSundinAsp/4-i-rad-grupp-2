@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import './ProfilePageComponent.css';
 import HeaderComponent from "../../components/headercomponent/HeaderComponent";
+import fileToBase64 from "../../utils/fileUtils";
 
 
 
@@ -22,18 +23,16 @@ const ProfilePageComponent: React.FC = () => {
     }
   }, []);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const imageString = reader.result as string;
-        setProfileImage(imageString);
-        localStorage.setItem('profileImage', imageString);
-      };
-      reader.readAsDataURL(file);
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const base64Image = await fileToBase64(e.target) as string;
+      setProfileImage(base64Image);
+      localStorage.setItem('profileImage', base64Image);
+    } catch (error) {
+      console.error("Error converting file to base64", error);
     }
-  };
+  }
+
 
   const handleSignOut = () => {
     localStorage.removeItem('loggedInUser');
