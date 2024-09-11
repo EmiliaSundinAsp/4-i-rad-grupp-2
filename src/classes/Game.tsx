@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Board from './Board';
 import Player from './Player';
 import MoveHandler from './MoveHandler';
@@ -6,11 +7,15 @@ import WinChecker from './WinChecker';
 import HeaderComponent from '../components/HeaderComponent';
 
 const Game: React.FC = () => {
+  const { state } = useLocation();
+  const playerXName = state?.playerXName || 'Player X';
+  const playerOName = state?.playerOName || 'Player O';
+
   const [boardState, setBoardState] = useState<string[][]>(
     Array.from({ length: 6 }, () => Array.from({ length: 7 }, () => ' '))
   );
-  const [playerX] = useState(new Player('Player X', 'X'));
-  const [playerO] = useState(new Player('Player O', 'O'));
+  const [playerX] = useState(new Player(playerXName, 'X'));
+  const [playerO] = useState(new Player(playerOName, 'O'));
   const [moveHandler, setMoveHandler] = useState<MoveHandler | null>(null);
   const [winChecker, setWinChecker] = useState<WinChecker | null>(null);
   const [currentPlayer, setCurrentPlayer] = useState<Player>(playerX);
@@ -39,12 +44,15 @@ const Game: React.FC = () => {
   const handleCellClick = (column: number) => {
     if (gameOver || !moveHandler) return;
 
-    const wasMoveSuccessful = moveHandler.makeMove(column, currentPlayer);
-    if (wasMoveSuccessful) {
+    const moveResult = moveHandler.makeMove(column, currentPlayer);
+    if (typeof moveResult === 'string') {
+      
+      alert(moveResult);
+    } else if (moveResult === true) {
       const winner = winChecker?.checkForWin();
       if (winner) {
         setGameOver(true);
-        alert(`Player ${winner} wins!`);
+        alert(`Player ${winner} (${winner === 'X' ? playerX.name : playerO.name}) wins!`);
       } else if (winChecker?.checkForDraw()) {
         setGameOver(true);
         alert('It\'s a draw!');
