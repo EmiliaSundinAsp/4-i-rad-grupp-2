@@ -70,13 +70,6 @@ const ProfilePageComponent: React.FC = () => {
 
 
   const handleSignOut = () => {
-    const loggedInUser = localStorage.getItem('loggedInUser');
-    if (loggedInUser) {
-
-      localStorage.removeItem(`profileImage_${loggedInUser}`);
-    }
-
-
     localStorage.removeItem('loggedInUser');
     localStorage.removeItem('userProfileData');
     setUsername(null);
