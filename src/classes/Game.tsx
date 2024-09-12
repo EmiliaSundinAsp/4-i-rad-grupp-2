@@ -184,7 +184,7 @@ const Game: React.FC = () => {
         <div className='player-turn-container'>
           {winnerMessage ? (
             <>
-              <h1 className='winner-message'>{winnerMessage}</h1>
+              <h1 className='winner-message' style={{ color: winnerMessage?.includes(playerXName) ? 'yellow' : 'red'}}>{winnerMessage}</h1>
               {winnerMessage.includes(playerX.name) && playerXProfileImage ? (
                 <img
                   src={playerXProfileImage}
