@@ -19,8 +19,13 @@ const Game: React.FC = () => {
   const difficulty = state?.difficulty || 'easy';
   const isComputerPlayer = state?.isComputerPlayer || false;
 
-  const playerXProfileImage = localStorage.getItem(`profileImage_${playerXName}`);
-  const playerOProfileImage = localStorage.getItem(`profileImage_${playerOName}`);
+  const playerXProfileImage = localStorage.getItem('loggedInUser') === playerXName
+    ? localStorage.getItem(`profileImage_${playerXName}`)
+    : null;
+
+  const playerOProfileImage = localStorage.getItem('loggedInUser') === playerOName
+    ? localStorage.getItem(`profileImage_${playerOName}`)
+    : null;
 
   const [boardState, setBoardState] = useState<string[][]>(
     Array.from({ length: 6 }, () => Array.from({ length: 7 }, () => ' '))
@@ -32,6 +37,7 @@ const Game: React.FC = () => {
   const [currentPlayer, setCurrentPlayer] = useState<Player>(playerX);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [winnerMessage, setWinnerMessage] = useState<string | null>(null);
+
 
   useEffect(() => {
     resetGame();
@@ -48,6 +54,7 @@ const Game: React.FC = () => {
     setCurrentPlayer(playerX);
     setGameOver(false);
     setWinnerMessage(null);
+
   };
 
   const updateState = (newBoardState: string[][]) => {
@@ -69,6 +76,9 @@ const Game: React.FC = () => {
         if (winner) {
           setGameOver(true);
           setWinnerMessage(`${winner === 'X' ? playerX.name : playerO.name} wins!`);
+
+          console.log('Player X profile image:', playerXProfileImage);
+          console.log('Player O profile image:', playerOProfileImage);
           if (winner === 'X') {
             playerX.addWin();
           } else if (winner === 'O') {
@@ -122,7 +132,22 @@ const Game: React.FC = () => {
       <div className='left-column'>
         <div className='player-turn-container'>
           {winnerMessage ? (
-            <h1 className='winner-message'>{winnerMessage}</h1>
+            <>
+              <h1 className='winner-message'>{winnerMessage}</h1>
+              {winnerMessage.includes(playerX.name) && playerXProfileImage ? (
+                <img
+                  src={playerXProfileImage}
+                  alt="Winner's profile"
+                  className="player-profile-image"
+                />
+              ) : winnerMessage.includes(playerO.name) && playerOProfileImage ? (
+                <img
+                  src={playerOProfileImage}
+                  alt="Winner's profile"
+                  className="player-profile-image"
+                />
+              ) : null}
+            </>
           ) : (
             <>
               <h1 className='player-turn'>It's your turn, <br />{currentPlayer.name}</h1>
@@ -142,6 +167,7 @@ const Game: React.FC = () => {
             </>
           )}
         </div>
+
         <div>
           <h2>ScoreBoard</h2>
           <p>{playerX.name}: {playerX.wins} wins</p>
@@ -151,13 +177,13 @@ const Game: React.FC = () => {
           <button onClick={resetGame} className='reset-btn'>Reset Game</button>
           <button onClick={handleQuitGame} className='quit-game-btn'>Quit game</button>
         </div>
-      </div>
+      </div >
       <div className='right-column'>
         <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} /></div>
 
 
       </div>
-    </div>
+    </div >
   );
 };
 
