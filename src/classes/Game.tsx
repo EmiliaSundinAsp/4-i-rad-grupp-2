@@ -61,6 +61,41 @@ const Game: React.FC = () => {
     setBoardState(newBoardState);
   };
 
+  // Automatically trigger computer's move when it's its turn
+  useEffect(() => {
+    if (currentPlayer === playerO && isComputerPlayer && !gameOver && moveHandler) {
+      // Delay to simulate thinking time
+      setTimeout(() => {
+        const computerMove = playerO.makeComputerMove(boardState, difficulty);
+        const moveResult = moveHandler.makeMove(computerMove, playerO);
+
+        if (typeof moveResult === 'string') {
+          alert(moveResult);
+        } else if (moveResult === true) {
+          const winner = winChecker?.checkForWin();
+          if (winner) {
+            setGameOver(true);
+            if (winner === 'X') {
+              playerX.addWin();
+            } else if (winner === 'O') {
+              playerO.addWin();
+            }
+            alert(`Player ${winner} (${winner === 'X' ? playerX.name : playerO.name}) wins!`);
+          } else if (winChecker?.checkForDraw()) {
+            setGameOver(true);
+            alert("It's a draw!");
+          } else {
+            // Switch turn to player X (human)
+            setCurrentPlayer(playerX);
+          }
+        }
+      }, 500); // 500ms delay for computer "thinking"
+    }
+  }, [currentPlayer, gameOver, moveHandler, boardState, playerO, difficulty, winChecker, playerX]);
+
+
+
+
   const handleCellClick = (column: number) => {
     if (gameOver || !moveHandler) return;
 
@@ -68,7 +103,7 @@ const Game: React.FC = () => {
       const computerMove = playerO.makeComputerMove(boardState, difficulty);
       const moveResult = moveHandler.makeMove(computerMove, playerO);
 
-      // after 
+      // after
       if (typeof moveResult === 'string') {
         alert(moveResult);
       } else if (moveResult === true) {
