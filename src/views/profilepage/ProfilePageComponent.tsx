@@ -19,9 +19,9 @@ const ProfilePageComponent: React.FC = () => {
 
 
       const storedImage = localStorage.getItem(`profileImage_${storedUser}`);
-      if (storedImage) {
-        setProfileImage(storedImage);
-      }
+
+      setProfileImage(storedImage || null);
+
     }
   }, []);
 
@@ -70,9 +70,18 @@ const ProfilePageComponent: React.FC = () => {
 
 
   const handleSignOut = () => {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+
+      localStorage.removeItem(`profileImage_${loggedInUser}`);
+    }
+
+
     localStorage.removeItem('loggedInUser');
-    localStorage.removeItem('profileImage');
-    navigate('/login');
+    localStorage.removeItem('userProfileData');
+    setUsername(null);
+    setProfileImage(null);
+    navigate('/');
   }
 
   return (
