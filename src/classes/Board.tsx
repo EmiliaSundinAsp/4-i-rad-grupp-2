@@ -15,7 +15,7 @@ const Board: React.FC<BoardProps> = ({ boardState, onCellClick }) => {
               className='cell'
             >
               <div
-                className={`piece ${cell === 'X' ? 'red-piece' : cell === 'O' ? 'yellow-piece' : 'empty-piece'}`}
+                className={`piece ${cell === 'X' ? 'yellow-piece' : cell === 'O' ? 'red-piece' : 'empty-piece'}`}
               />
             </div>
           ))}
