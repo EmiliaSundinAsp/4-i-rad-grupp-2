@@ -201,7 +201,8 @@ const Game: React.FC = () => {
             </>
           ) : (
             <>
-              <h1 className='player-turn'>It's your turn, <br />{currentPlayer.name}</h1>
+                <h1 className='player-turn'>It's your turn, <br />
+                  <span style={{ color: currentPlayer.symbol === 'X' ? 'yellow' : 'red' }}>{currentPlayer.name}</span></h1>
               {currentPlayer === playerX && playerXProfileImage ? (
                 <img
                   src={playerXProfileImage}
