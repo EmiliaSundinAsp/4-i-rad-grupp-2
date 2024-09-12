@@ -5,6 +5,7 @@ import Player from './Player';
 import MoveHandler from './MoveHandler';
 import WinChecker from './winChecker';
 import HeaderComponent from '../components/headercomponent/HeaderComponent';
+import Modal from '../components/modalprops/Modal';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -37,6 +38,7 @@ const Game: React.FC = () => {
   const [currentPlayer, setCurrentPlayer] = useState<Player>(playerX);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [winnerMessage, setWinnerMessage] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
 
   useEffect(() => {
@@ -60,6 +62,8 @@ const Game: React.FC = () => {
   const updateState = (newBoardState: string[][]) => {
     setBoardState(newBoardState);
   };
+
+
 
   const handleCellClick = (column: number) => {
     if (gameOver || !moveHandler) return;
@@ -120,15 +124,28 @@ const Game: React.FC = () => {
   };
 
   const handleQuitGame = () => {
-    const userConfirmed = window.confirm("Are you sure you want to quit the game?");
-    if (userConfirmed) {
-      navigate('/');
-    }
+    setShowModal(true)
+  };
+
+  const confirmQuitGame = () => {
+    setShowModal(false);
+    navigate('/');
+  };
+
+  const cancelQuitGame = () => {
+    setShowModal(false);
   };
 
   return (
     <div className='container'>
       <HeaderComponent />
+      <Modal
+        show={showModal}
+        title="Quit Game"
+        message="Are you sure you want to quit the game?"
+        onConfirm={confirmQuitGame}
+        onCancel={cancelQuitGame}
+      />
       <div className='left-column'>
         <div className='player-turn-container'>
           {winnerMessage ? (
@@ -183,6 +200,7 @@ const Game: React.FC = () => {
 
 
       </div>
+
     </div >
   );
 };
