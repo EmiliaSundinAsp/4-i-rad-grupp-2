@@ -83,10 +83,10 @@ const Game: React.FC = () => {
             } else if (winner === 'O') {
               playerO.addWin();
             }
-            alert(`Player ${winner} (${winner === 'X' ? playerX.name : playerO.name}) wins!`);
+            setWinnerMessage(`${winner === 'X' ? playerX.name : playerO.name} wins!`);
           } else if (winChecker?.checkForDraw()) {
             setGameOver(true);
-            alert("It's a draw!");
+            setWinnerMessage("It's a draw!");
           } else {
             // Switch turn to player X (human)
             setCurrentPlayer(playerX);
