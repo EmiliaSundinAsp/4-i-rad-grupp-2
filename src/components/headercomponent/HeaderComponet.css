@@ -60,7 +60,7 @@
   }
 }
 
-@media screen and (orientation: landscape) {
+@media (max-width:667px) and (orientation: landscape) {
   .header {
     display: none;
   }

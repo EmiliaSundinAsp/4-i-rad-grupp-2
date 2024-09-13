@@ -273,7 +273,7 @@ body {
 
 /* End to Game layout */
 
-@media screen and (max-width: 900px) and (orientation: landscape) {
+@media screen and (max-width: 700px) and (orientation: landscape) {
   
   .container {
     flex-direction: column; 
@@ -286,7 +286,7 @@ body {
   }
 
   .btn-container {
-    flex-direction: row; /* Gör att knapparna ligger bredvid varandra */
+    flex-direction: row; 
     justify-content: space-evenly;
   }
 
@@ -320,8 +320,8 @@ body {
   .player-turn-container{
     display: flex;
     flex-direction: column;
-  margin-top: 0.1vh;
-  height: 155px;
+    margin-top: 0.1vh;
+    height: 155px;
 }
 .turn-info {
   display: flex;
