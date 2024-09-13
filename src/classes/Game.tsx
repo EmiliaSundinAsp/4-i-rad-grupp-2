@@ -20,6 +20,8 @@ const Game: React.FC = () => {
 
   const difficulty = state?.difficulty || 'easy';
   const isComputerPlayer = state?.isComputerPlayer || false;
+  const isComputerPlayerX = state?.isComputerPlayerX || false;
+  const isComputerPlayerO = state?.isComputerPlayerO || false;
 
   const playerXProfileImage = localStorage.getItem('loggedInUser') === playerXName
     ? localStorage.getItem(`profileImage_${playerXName}`)
@@ -67,11 +69,11 @@ const Game: React.FC = () => {
 
   // Automatically trigger computer's move when it's its turn
   useEffect(() => {
-    if (currentPlayer === playerO && isComputerPlayer && !gameOver && moveHandler) {
+    if ((currentPlayer === playerO && isComputerPlayerO|| currentPlayer === playerX && isComputerPlayerX) && !gameOver && moveHandler) {
       // Delay to simulate thinking time
       setTimeout(() => {
-        const computerMove = playerO.makeComputerMove(boardState, difficulty);
-        const moveResult = moveHandler.makeMove(computerMove, playerO);
+        const computerMove = currentPlayer.makeComputerMove(boardState, difficulty);
+        const moveResult = moveHandler.makeMove(computerMove, currentPlayer);
 
         if (typeof moveResult === 'string') {
           alert(moveResult);
@@ -90,7 +92,7 @@ const Game: React.FC = () => {
             setWinnerMessage("It's a draw!");
           } else {
             // Switch turn to player X (human)
-            setCurrentPlayer(playerX);
+            setCurrentPlayer(currentPlayer === playerX ? playerO : playerX);
           }
         }
       }, 500); // 500ms delay for computer "thinking"
@@ -103,9 +105,9 @@ const Game: React.FC = () => {
   const handleCellClick = (column: number) => {
     if (gameOver || !moveHandler) return;
 
-    if (currentPlayer === playerO && isComputerPlayer) {
-      const computerMove = playerO.makeComputerMove(boardState, difficulty);
-      const moveResult = moveHandler.makeMove(computerMove, playerO);
+    if (currentPlayer === playerO && isComputerPlayerO||playerX && isComputerPlayerX) {
+      const computerMove = currentPlayer.makeComputerMove(boardState, difficulty);
+      const moveResult = moveHandler.makeMove(computerMove, currentPlayer);
 
       // after
       if (typeof moveResult === 'string') {
@@ -129,7 +131,7 @@ const Game: React.FC = () => {
           setWinnerMessage("It's a draw!");
         } else {
           // change turn
-          setCurrentPlayer(playerX);
+          setCurrentPlayer(currentPlayer === playerX ? playerO : playerX);
         }
       }
     } else {
