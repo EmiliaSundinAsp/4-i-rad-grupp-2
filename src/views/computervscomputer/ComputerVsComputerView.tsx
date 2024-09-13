@@ -39,7 +39,7 @@ const ComputerVsComputer: React.FC = () => {
         <form onSubmit={handleSubmit} className="computer-settings-form">
           <h2 className="page-title">Computer vs Computer</h2>
 
-          <h3 className="difficulty-selection-heading">Choose Difficulty for Computer 1</h3>
+          <h3 className="difficulty-selection-heading">Choose Difficulty for <span className="yellow-text">Computer 1</span></h3>
           <div className="difficulty-options">
             <button
               type="button"
@@ -57,7 +57,7 @@ const ComputerVsComputer: React.FC = () => {
             </button>
           </div>
 
-          <h3 className="difficulty-selection-heading">Choose Difficulty for Computer 2</h3>
+          <h3 className="difficulty-selection-heading">Choose Difficulty for <span className="red-text">Computer 2</span></h3>
           <div className="difficulty-options">
             <button
               type="button"

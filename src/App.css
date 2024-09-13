@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+body {
+  background-color: #A1A2A5; 
+}
+
 /* CSS for Board */
 
 .game-board {
@@ -55,27 +59,31 @@
 /* Game layout */
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #A1A2A5;
   width: 100vw;
-  height: 100vh;
-  margin-top: 120px;
-  align-items: flex-start;
+  max-width: 1200px;
+  min-height: 100vh;
+  margin-top: 180px;
+  align-items: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-top: 60px;
+  margin: auto;
 }
+
 
 .left-column {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  width: 30vw;
-  height: 75%;
-  flex-direction: column;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
   background-color: #A1A2A5;
 }
 
 .player-turn {
-  font-size: 28px;
+  font-size: 19px;
   color: black;
   flex-grow: 10;
 }
@@ -86,26 +94,51 @@
   flex-grow: 10;
 }
 
-.right-column {
+.right-wrapper {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 70vw;
-  height: 100%;
-  flex-direction: column;
+  width: auto;
+  height: auto;
+  flex-direction: row;
   background-color: #A1A2A5;
 }
 
-.board-container , .player-turn-container{
-  flex-grow: 10;
+.player-turn-container{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 20;
   margin-top: 5vh;
+  height: 170px;
 }
+.turn-info {
+  display: flex;
+  align-items: center;
+  padding: 50px;
+}
+
 .btn-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-basis: content;
-  margin-bottom: 5vh;
+  margin-right: 40px;
+}
+
+.score-board {
+  padding: 10px;
+  margin: 10px;
+  line-height: 30px;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  line-height: 30px;
 }
 
 .quit-game-btn , .reset-btn {
@@ -123,30 +156,50 @@
 }
 
 .player-profile-image {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid black; 
-  margin: 25px;
+  margin: 20px;
+}
+
+.logo-game {
+  display: none;
+}
+
+@media (min-width:1200px) {
+  .container {
+    max-width: 1200px;
+  }
 }
 
 @media (max-width: 900px) {
-  .left-column {
-    flex-direction: row;
-    width: auto;
-  }
-  
   .container {
-    display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 40px;
   }
-  .board-container , .player-turn-container{
-  margin: 5px;
+  .game-board {
+  padding: 1.5em;
+  width: 360px;
+  border-radius: 3%;
 }
-.btn-container {
+.cell {
+  width: 3em;
+  height: 3em;
+}
+
+.piece {
+  width: 2.5em;
+  height: 2.5em;
+}
+  
+
+  .player-turn, .winner-message {
+    font-size: 19px;
+  }
+  .board-container {
   margin: 5px;
 }
 .quit-game-btn , .reset-btn {
@@ -156,12 +209,29 @@
   font-size: 11px;
   font-weight: normal;
 }
+.right-wrapper {
+  flex-direction: column;
+}
+.right-column {
+    order: 1;
+  }
+.btn-container {
+  order: 2;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
   
 }
 @media (max-width: 660px) {
+  .container {
+    margin-top: 70px;
+  }
   .game-board {
-  padding: 1.5em;
-  width: 360px;
+  padding: 1.2em;
+  width: 350px;
   border-radius: 3%;
 }
 .cell {
@@ -178,20 +248,95 @@
     width: auto;
   }
   
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
   .board-container , .player-turn-container{
   margin: 5px;
 }
-.btn-container {
-  margin: 5px;
 }
-  
+
+@media (max-width: 380px) {
+  .game-board {
+  padding: 1em;
+  width: 310px;
+  border-radius: 3%;
+}
+.cell {
+  width: 2.5em;
+  height: 2.5em;
+}
+
+.piece {
+  width: 2em;
+  height: 2em;
+}
 }
 
 
 /* End to Game layout */
+
+@media screen and (max-width: 700px) and (orientation: landscape) {
+  
+  .container {
+    flex-direction: column; 
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .right-wrapper {
+    flex-direction: row;
+  }
+
+  .btn-container {
+    flex-direction: row; 
+    justify-content: space-evenly;
+  }
+
+  .player-profile-image {
+    width: 60px; 
+    height: 60px;
+  }
+  .game-board {
+  padding: 0.8em;
+  width: 245px;
+  border-radius: 3%;
+}
+.cell {
+  width: 1.9em;
+  height: 1.9em;
+}
+
+.piece {
+  width: 1.5em;
+  height: 1.5em;
+}
+.right-column {
+    order: 2;
+  }
+.btn-container {
+  order: 1;
+}
+.player-turn, .winner-message {
+    font-size: 14px;
+  }
+  .player-turn-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.1vh;
+    height: 155px;
+}
+.turn-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+  padding: 10px;
+}
+.score-board h2 {
+  font-size: 19px;
+}
+.logo-game {
+  display: inline;
+  width: 150px;
+  padding: 13px;
+}
+}

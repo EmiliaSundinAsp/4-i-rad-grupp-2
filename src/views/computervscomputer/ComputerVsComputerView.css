@@ -67,7 +67,7 @@
   transform: translateY(1px);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 660px) {
   .computer-settings-form {
     padding: 20px;
   }
@@ -78,8 +78,9 @@
   }
 
   .start-game-button {
-    padding: 9px 16px;
+    padding: 6px 12px;
     font-size: 15px;
+    font-weight: normal;
   }
 }
 
@@ -90,8 +91,5 @@
     font-size: 16px;
   }
 
-  .start-game-button {
-    padding: 6px 12px;
-    font-size: 14px;
-  }
+  
 }
