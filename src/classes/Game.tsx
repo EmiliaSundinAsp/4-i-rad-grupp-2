@@ -6,6 +6,7 @@ import MoveHandler from './MoveHandler';
 import WinChecker from './winChecker';
 import HeaderComponent from '../components/headercomponent/HeaderComponent';
 import Modal from '../components/modalprops/Modal';
+import logo from '../assets/logo2.svg';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -171,72 +172,88 @@ const Game: React.FC = () => {
   };
 
   return (
-    <div className='container'>
+    <>
       <HeaderComponent />
-      <Modal
-        show={showModal}
-        title="Quit Game"
-        message="Are you sure you want to quit the game?"
-        onConfirm={confirmQuitGame}
-        onCancel={cancelQuitGame}
-      />
-      <div className='left-column'>
-        <div className='player-turn-container'>
-          {winnerMessage ? (
-            <>
-              <h1 className='winner-message' style={{ color: winnerMessage?.includes(playerXName) ? 'yellow' : 'red'}}>{winnerMessage}</h1>
-              {winnerMessage.includes(playerX.name) && playerXProfileImage ? (
-                <img
-                  src={playerXProfileImage}
-                  alt="Winner's profile"
-                  className="player-profile-image"
-                />
-              ) : winnerMessage.includes(playerO.name) && playerOProfileImage ? (
-                <img
-                  src={playerOProfileImage}
-                  alt="Winner's profile"
-                  className="player-profile-image"
-                />
-              ) : null}
-            </>
-          ) : (
-            <>
-                <h1 className='player-turn'>It's your turn, <br />
-                  <span style={{ color: currentPlayer.symbol === 'X' ? 'yellow' : 'red' }}>{currentPlayer.name}</span></h1>
-              {currentPlayer === playerX && playerXProfileImage ? (
-                <img
-                  src={playerXProfileImage}
-                  alt={`${playerX.name}'s profile`}
-                  className="player-profile-image"
-                />
-              ) : currentPlayer === playerO && playerOProfileImage ? (
-                <img
-                  src={playerOProfileImage}
-                  alt={`${playerO.name}'s profile`}
-                  className="player-profile-image"
-                />
-              ) : null}
-            </>
-          )}
+      <div className='container'>
+
+        <Modal
+          show={showModal}
+          title="Quit Game"
+          message="Are you sure you want to quit the game?"
+          onConfirm={confirmQuitGame}
+          onCancel={cancelQuitGame}
+        />
+
+
+        <div className='left-column'>
+          <div className='player-turn-container'>
+            <img src={logo} alt="Logo" className='logo-game' />
+            {winnerMessage ? (
+              <div className='turn-info'>
+                <h1 className='winner-message' style={{ color: winnerMessage?.includes(playerXName) ? 'yellow' : 'red' }}>{winnerMessage}</h1>
+                {winnerMessage.includes(playerX.name) && playerXProfileImage ? (
+                  <img
+                    src={playerXProfileImage}
+                    alt="Winner's profile"
+                    className="player-profile-image"
+                  />
+                ) : winnerMessage.includes(playerO.name) && playerOProfileImage ? (
+                  <img
+                    src={playerOProfileImage}
+                    alt="Winner's profile"
+                    className="player-profile-image"
+                  />
+                ) : null}
+
+              </div>
+
+            ) : (
+
+              <div className='turn-info'>
+                {currentPlayer === playerX && playerXProfileImage ? (
+                  <img
+                    src={playerXProfileImage}
+                    alt={`${playerX.name}'s profile`}
+                    className="player-profile-image"
+                  />
+                ) : currentPlayer === playerO && playerOProfileImage ? (
+                  <img
+                    src={playerOProfileImage}
+                    alt={`${playerO.name}'s profile`}
+                    className="player-profile-image"
+                  />
+                ) : null}
+                <h1 className='player-turn'>It's your turn,
+                  <span style={{ color: currentPlayer.symbol === 'X' ? 'yellow' : 'red' }}>{currentPlayer.name}</span>
+                </h1>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className='right-wrapper'>
+          <div className='btn-container'>
+            <div className='score-board'>
+              <h2>ScoreBoard</h2>
+              <p>{playerX.name}: {playerX.wins} wins</p>
+              <p>{playerO.name}: {playerO.wins} wins</p>
+            </div>
+            <div className='buttons'>
+              <button onClick={resetGame} className='reset-btn'>Reset Game</button>
+              <button onClick={handleQuitGame} className='quit-game-btn'>Quit game</button>
+            </div>
+          </div>
+
+
+          <div className='right-column'>
+            <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} /></div>
+
+          </div>
+
         </div>
 
-        <div>
-          <h2>ScoreBoard</h2>
-          <p>{playerX.name}: {playerX.wins} wins</p>
-          <p>{playerO.name}: {playerO.wins} wins</p>
-        </div>
-        <div className='btn-container'>
-          <button onClick={resetGame} className='reset-btn'>Reset Game</button>
-          <button onClick={handleQuitGame} className='quit-game-btn'>Quit game</button>
-        </div>
       </div >
-      <div className='right-column'>
-        <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} /></div>
+    </>
 
-
-      </div>
-
-    </div >
   );
 };
 
