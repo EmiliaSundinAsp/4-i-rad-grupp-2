@@ -5,22 +5,29 @@ export default class WinChecker {
     this.boardState = boardState;
   }
 
-  private isWinningCombo(symbol: string, row: number, col: number, offsets: number[][]): boolean {
-    let symbolsInCombo = '';
+  private isWinningCombo(symbol: string, row: number, col: number, offsets: number[][]): [number, number][] | null {
+    let positions: [number, number][] = [];
 
     for (let [ro, co] of offsets) {
       const newRow = row + ro;
       const newCol = col + co;
 
       if (newRow >= 0 && newRow < this.boardState.length && newCol >= 0 && newCol < this.boardState[0].length) {
-        symbolsInCombo += this.boardState[newRow][newCol];
+        if (this.boardState[newRow][newCol] === symbol) {
+          positions.push([newRow, newCol]);
+        } else {
+          return null; // Om någon position inte matchar, returnera null
+        }
+      } else {
+        return null; // Om det är utanför brädets gränser
       }
     }
 
-    return symbolsInCombo === symbol.repeat(4);
+    // Om vi har samlat fyra positioner, returnera dem
+    return positions.length === 4 ? positions : null;
   }
 
-  public checkForWin(): string | boolean {
+  public checkForWin(): { symbol: string, positions: [number, number][] } | null {
     const offsets = [
       [[0, 0], [0, 1], [0, 2], [0, 3]], // Horizontal win.
       [[0, 0], [1, 0], [2, 0], [3, 0]], // Vertical win.
@@ -32,15 +39,17 @@ export default class WinChecker {
       for (let r = 0; r < this.boardState.length; r++) {
         for (let c = 0; c < this.boardState[0].length; c++) {
           for (let winType of offsets) {
-            if (this.isWinningCombo(symbol, r, c, winType)) {
-              return symbol;
+            const winningPositions = this.isWinningCombo(symbol, r, c, winType);
+            if (winningPositions) {
+              return { symbol, positions: winningPositions };
             }
           }
         }
       }
     }
-    return false;
+    return null;
   }
+
 
   public checkForDraw(): boolean {
     return !this.checkForWin() && !this.boardState.flat().includes(' ');

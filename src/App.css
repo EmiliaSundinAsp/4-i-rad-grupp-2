@@ -38,22 +38,39 @@ body {
   width: 4em;
   height: 4em;
   border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+.empty-piece {
+  background-color: #A1A2A5;
+}
+
+
+.yellow-piece {
+  background-color: yellow;
 }
 
 .red-piece {
   background-color: red;
 }
 
-.yellow-piece {
-  background-color: yellow;
+.blinking-border {
+  animation: blink 1s infinite;
 }
 
-.empty-piece {
-  background-color: #A1A2A5;
+@keyframes blink {
+  50% {
+    border: 4px solid white;
+  }
 }
 
+.blinking-border-yellow {
+  border: 4px solid yellow; /* Behåll gul färg med blinkande effekt */
+}
 
-
+.blinking-border-red {
+  border: 4px solid red; /* Behåll röd färg med blinkande effekt */
+}
 /* End to Board CSS*/
 
 /* Game layout */
@@ -93,6 +110,8 @@ body {
   color: black;
   flex-grow: 10;
 }
+
+
 
 .right-wrapper {
   display: flex;
