@@ -2,27 +2,38 @@ type BoardProps = {
   boardState: string[][];
   onCellClick: (column: number) => void;
   winningPositions: [number, number][];
+  errorMessage?: string;
 };
 
-const Board: React.FC<BoardProps> = ({ boardState, onCellClick, winningPositions }) => {
+const Board: React.FC<BoardProps> = ({
+  boardState,
+  onCellClick,
+  winningPositions,
+  errorMessage,
+}) => {
   return (
-    <div className='game-board'>
+    <div className="game-board">
+      {errorMessage && (
+        <div className="error-message" style={{ color: "red" }}>
+          {errorMessage}
+        </div>
+      )}
       {boardState.map((row, rowIndex) => (
-        <div key={rowIndex} className='row'>
+        <div key={rowIndex} className="row">
           {row.map((piece, colIndex) => {
             const isWinningPosition = winningPositions.some(
               ([r, c]) => r === rowIndex && c === colIndex
             );
 
-            let pieceClass = 'empty-piece'; // Standardklass för en tom cell.
-            let borderClass = ''; // Standard för border (ingen border som standard).
+            let pieceClass = "empty-piece"; // Standardklass för en tom cell.
+            let borderClass = ""; // Standard för border (ingen border som standard).
 
-            if (piece === 'X') {
-              pieceClass = 'yellow-piece'; // X får gul färg.
-              borderClass = isWinningPosition ? 'blinking-border-yellow' : ''; // Gul blinkande border om det är en vinnande pjäs.
-            } else if (piece === 'O') {
-              pieceClass = 'red-piece'; // O får röd färg.
-              borderClass = isWinningPosition ? 'blinking-border-red' : ''; // Röd blinkande border om det är en vinnande pjäs.
+            if (piece === "X") {
+              pieceClass = "yellow-piece"; // X får gul färg.
+              borderClass = isWinningPosition ? "blinking-border-yellow" : ""; // Gul blinkande border om det är en vinnande pjäs.
+            } else if (piece === "O") {
+              pieceClass = "red-piece"; // O får röd färg.
+              borderClass = isWinningPosition ? "blinking-border-red" : ""; // Röd blinkande border om det är en vinnande pjäs.
             }
 
             return (
