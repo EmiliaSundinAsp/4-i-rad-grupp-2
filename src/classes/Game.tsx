@@ -43,6 +43,7 @@ const Game: React.FC = () => {
   const [winnerMessage, setWinnerMessage] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [winningPositions, setWinningPositions] = useState<[number, number][]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
   useEffect(() => {
@@ -77,8 +78,9 @@ const Game: React.FC = () => {
         const moveResult = moveHandler.makeMove(computerMove, currentPlayer);
 
         if (typeof moveResult === 'string') {
-          alert(moveResult);
+          setErrorMessage(moveResult);
         } else if (moveResult === true) {
+          setErrorMessage(null);
           const winnerResult = winChecker?.checkForWin();
           if (winnerResult && typeof winnerResult !== 'boolean') {
             const { symbol, positions } = winnerResult;
@@ -113,8 +115,9 @@ const Game: React.FC = () => {
 
       // after
       if (typeof moveResult === 'string') {
-        alert(moveResult);
+        setErrorMessage(moveResult);
       } else if (moveResult === true) {
+        setErrorMessage(null);
         const winnerResult = winChecker?.checkForWin();
         if (winnerResult && typeof winnerResult !== 'boolean') {
           const { symbol, positions } = winnerResult;
@@ -149,8 +152,9 @@ const Game: React.FC = () => {
       // human player
       const moveResult = moveHandler.makeMove(column, currentPlayer);
       if (typeof moveResult === 'string') {
-        alert(moveResult);
+        setErrorMessage(moveResult);
       } else if (moveResult === true) {
+        setErrorMessage(null);
         const winnerResult = winChecker?.checkForWin();
         if (winnerResult && typeof winnerResult !== 'boolean') {
           const { symbol, positions } = winnerResult;
@@ -272,7 +276,7 @@ const Game: React.FC = () => {
 
 
           <div className='right-column'>
-            <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} winningPositions={winningPositions} /></div>
+            <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} winningPositions={winningPositions} errorMessage={errorMessage} /></div>
 
           </div>
 
