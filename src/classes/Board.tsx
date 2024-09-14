@@ -9,7 +9,7 @@ const Board: React.FC<BoardProps> = ({ boardState, onCellClick, winningPositions
     <div className='game-board'>
       {boardState.map((row, rowIndex) => (
         <div key={rowIndex} className='row'>
-          {row.map((cell, colIndex) => {
+          {row.map((piece, colIndex) => {
             const isWinningPosition = winningPositions.some(
               ([r, c]) => r === rowIndex && c === colIndex
             );
@@ -17,10 +17,10 @@ const Board: React.FC<BoardProps> = ({ boardState, onCellClick, winningPositions
             let pieceClass = 'empty-piece'; // Standardklass för en tom cell.
             let borderClass = ''; // Standard för border (ingen border som standard).
 
-            if (cell === 'X') {
+            if (piece === 'X') {
               pieceClass = 'yellow-piece'; // X får gul färg.
               borderClass = isWinningPosition ? 'blinking-border-yellow' : ''; // Gul blinkande border om det är en vinnande pjäs.
-            } else if (cell === 'O') {
+            } else if (piece === 'O') {
               pieceClass = 'red-piece'; // O får röd färg.
               borderClass = isWinningPosition ? 'blinking-border-red' : ''; // Röd blinkande border om det är en vinnande pjäs.
             }
@@ -29,7 +29,7 @@ const Board: React.FC<BoardProps> = ({ boardState, onCellClick, winningPositions
               <div
                 key={colIndex}
                 onClick={() => onCellClick(colIndex)}
-                className={`cell`}
+                className={`piece`}
               >
                 {/* Lägg till både bakgrundsfärg och border utan att radera färgen */}
                 <div className={`piece ${pieceClass} ${borderClass}`} />

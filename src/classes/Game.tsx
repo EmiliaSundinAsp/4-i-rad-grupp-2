@@ -128,12 +128,12 @@ const Game: React.FC = () => {
             playerO.addWin();
           }
 
-          // Uppdatera brädet för att markera de vinnande pjäserna
+
           const updatedBoard = boardState.map((row, rowIndex) =>
-            row.map((cell, colIndex) => {
+            row.map((piece, colIndex) => {
               return positions.some(([r, c]) => r === rowIndex && c === colIndex)
-                ? cell
-                : cell;
+                ? piece
+                : piece;
             })
           );
           setBoardState(updatedBoard);
@@ -164,12 +164,12 @@ const Game: React.FC = () => {
             playerO.addWin();
           }
 
-          // Uppdatera brädet med markering av vinnande pjäser
+
           const updatedBoard = boardState.map((row, rowIndex) =>
-            row.map((cell, colIndex) => {
+            row.map((piece, colIndex) => {
               return positions.some(([r, c]) => r === rowIndex && c === colIndex)
-                ? `${cell}*` // Lägg till markering på vinnande pjäser
-                : cell;
+                ? piece
+                : piece;
             })
           );
           setBoardState(updatedBoard);
@@ -251,7 +251,7 @@ const Game: React.FC = () => {
                   />
                 ) : null}
                 <h1 className='player-turn'>It's your turn,
-                  <span style={{ color: currentPlayer.symbol === 'X' ? 'yellow' : 'red' }}>{currentPlayer.name}</span>
+                  <span className='player-name' style={{ color: currentPlayer.symbol === 'X' ? 'yellow' : 'red' }}>{currentPlayer.name}</span>
                 </h1>
               </div>
             )}
