@@ -42,6 +42,7 @@ const Game: React.FC = () => {
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [winnerMessage, setWinnerMessage] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [winningPositions, setWinningPositions] = useState<[number, number][]>([]);
 
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const Game: React.FC = () => {
     setCurrentPlayer(playerX);
     setGameOver(false);
     setWinnerMessage(null);
-
+    setWinningPositions([]);
   };
 
   const updateState = (newBoardState: string[][]) => {
@@ -69,7 +70,7 @@ const Game: React.FC = () => {
 
   // Automatically trigger computer's move when it's its turn
   useEffect(() => {
-    if ((currentPlayer === playerO && isComputerPlayerO|| currentPlayer === playerX && isComputerPlayerX) && !gameOver && moveHandler) {
+    if ((currentPlayer === playerO && isComputerPlayerO || currentPlayer === playerX && isComputerPlayerX) && !gameOver && moveHandler) {
       // Delay to simulate thinking time
       setTimeout(() => {
         const computerMove = currentPlayer.makeComputerMove(boardState, difficulty);
@@ -78,15 +79,18 @@ const Game: React.FC = () => {
         if (typeof moveResult === 'string') {
           alert(moveResult);
         } else if (moveResult === true) {
-          const winner = winChecker?.checkForWin();
-          if (winner) {
+          const winnerResult = winChecker?.checkForWin();
+          if (winnerResult && typeof winnerResult !== 'boolean') {
+            const { symbol, positions } = winnerResult;
             setGameOver(true);
-            if (winner === 'X') {
+            setWinningPositions(positions);
+
+            if (symbol === 'X') {
               playerX.addWin();
-            } else if (winner === 'O') {
+            } else if (symbol === 'O') {
               playerO.addWin();
             }
-            setWinnerMessage(`${winner === 'X' ? playerX.name : playerO.name} wins!`);
+            setWinnerMessage(`${symbol === 'X' ? playerX.name : playerO.name} wins!`);
           } else if (winChecker?.checkForDraw()) {
             setGameOver(true);
             setWinnerMessage("It's a draw!");
@@ -100,12 +104,10 @@ const Game: React.FC = () => {
   }, [currentPlayer, gameOver, moveHandler, boardState, playerO, difficulty, winChecker, playerX]);
 
 
-
-
   const handleCellClick = (column: number) => {
     if (gameOver || !moveHandler) return;
 
-    if (currentPlayer === playerO && isComputerPlayerO||playerX && isComputerPlayerX) {
+    if (currentPlayer === playerO && isComputerPlayerO || currentPlayer === playerX && isComputerPlayerX) {
       const computerMove = currentPlayer.makeComputerMove(boardState, difficulty);
       const moveResult = moveHandler.makeMove(computerMove, currentPlayer);
 
@@ -113,19 +115,28 @@ const Game: React.FC = () => {
       if (typeof moveResult === 'string') {
         alert(moveResult);
       } else if (moveResult === true) {
-        const winner = winChecker?.checkForWin();
-        if (winner) {
+        const winnerResult = winChecker?.checkForWin();
+        if (winnerResult && typeof winnerResult !== 'boolean') {
+          const { symbol, positions } = winnerResult;
           setGameOver(true);
-          setWinnerMessage(`${winner === 'X' ? playerX.name : playerO.name} wins!`);
+          setWinningPositions(positions);
+          setWinnerMessage(`${symbol === 'X' ? playerX.name : playerO.name} wins!`);
 
-          console.log('Player X profile image:', playerXProfileImage);
-          console.log('Player O profile image:', playerOProfileImage);
-          if (winner === 'X') {
+          if (symbol === 'X') {
             playerX.addWin();
-          } else if (winner === 'O') {
+          } else if (symbol === 'O') {
             playerO.addWin();
           }
 
+
+          const updatedBoard = boardState.map((row, rowIndex) =>
+            row.map((piece, colIndex) => {
+              return positions.some(([r, c]) => r === rowIndex && c === colIndex)
+                ? piece
+                : piece;
+            })
+          );
+          setBoardState(updatedBoard);
         } else if (winChecker?.checkForDraw()) {
           setGameOver(true);
           setWinnerMessage("It's a draw!");
@@ -135,20 +146,33 @@ const Game: React.FC = () => {
         }
       }
     } else {
-      //human
+      // human player
       const moveResult = moveHandler.makeMove(column, currentPlayer);
       if (typeof moveResult === 'string') {
         alert(moveResult);
       } else if (moveResult === true) {
-        const winner = winChecker?.checkForWin();
-        if (winner) {
+        const winnerResult = winChecker?.checkForWin();
+        if (winnerResult && typeof winnerResult !== 'boolean') {
+          const { symbol, positions } = winnerResult;
           setGameOver(true);
-          if (winner === 'X') {
+          setWinningPositions(positions);
+          setWinnerMessage(`Player ${symbol === 'X' ? playerX.name : playerO.name} wins!`);
+
+          if (symbol === 'X') {
             playerX.addWin();
-          } else if (winner === 'O') {
+          } else if (symbol === 'O') {
             playerO.addWin();
           }
-          setWinnerMessage(`Player ${winner === 'X' ? playerX.name : playerO.name} wins!`);
+
+
+          const updatedBoard = boardState.map((row, rowIndex) =>
+            row.map((piece, colIndex) => {
+              return positions.some(([r, c]) => r === rowIndex && c === colIndex)
+                ? piece
+                : piece;
+            })
+          );
+          setBoardState(updatedBoard);
         } else if (winChecker?.checkForDraw()) {
           setGameOver(true);
           setWinnerMessage("It's a draw!");
@@ -159,6 +183,7 @@ const Game: React.FC = () => {
       }
     }
   };
+
 
   const handleQuitGame = () => {
     setShowModal(true)
@@ -226,7 +251,7 @@ const Game: React.FC = () => {
                   />
                 ) : null}
                 <h1 className='player-turn'>It's your turn,
-                  <span style={{ color: currentPlayer.symbol === 'X' ? 'yellow' : 'red' }}>{currentPlayer.name}</span>
+                  <span className='player-name' style={{ color: currentPlayer.symbol === 'X' ? 'yellow' : 'red' }}>{currentPlayer.name}</span>
                 </h1>
               </div>
             )}
@@ -247,7 +272,7 @@ const Game: React.FC = () => {
 
 
           <div className='right-column'>
-            <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} /></div>
+            <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} winningPositions={winningPositions} /></div>
 
           </div>
 
