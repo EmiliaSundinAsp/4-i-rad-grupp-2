@@ -83,7 +83,8 @@ export default class Player {
       if (boardState[row][column] === ' ') {
         boardState[row][column] = symbol;
         const winChecker = new WinChecker(boardState);
-        const win = winChecker.checkForWin() === symbol;
+        const result = winChecker.checkForWin();
+        const win = result !== null && result.symbol === symbol;
         boardState[row][column] = ' ';
         return win;
       }
