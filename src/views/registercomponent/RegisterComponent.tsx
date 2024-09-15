@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { hashSync } from "bcrypt-ts";
 import { useNavigate } from "react-router-dom";
 import './RegisterComponet.css';
 import HeaderComponent from "../../components/headercomponent/HeaderComponent";
@@ -14,6 +13,11 @@ const RegisterComponent: React.FC = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!username || !password) {
+      setError('Please enter both username and password.');
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:5001/register', {
@@ -45,17 +49,17 @@ const RegisterComponent: React.FC = () => {
         <form onSubmit={handleRegister}>
           <div>
             <label htmlFor="username">Username:</label>
-            <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
           <div>
             <label htmlFor="password">Password:</label>
-            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div>
             <button className="register-button" type="submit">Register</button>
           </div>
           <div>
-            {error && <p>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
           </div>
         </form>
       </div>

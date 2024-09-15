@@ -7,24 +7,52 @@ const PlayerVsComputer: React.FC = () => {
   const [playerXName, setPlayerXName] = useState<string>('');
   const [color, setColor] = useState<string>('');
   const [difficulty, setDifficulty] = useState<string>('');
+  const [colorError, setColorError] = useState<string>('');
+  const [difficultyError, setDifficultyError] = useState<string>('');
+  const [playerXNameError, setPlayerXNameError] = useState<string>('');
 
   const navigate = useNavigate();
 
   const handleColorSelect = (selectedColor: string) => {
     setColor(selectedColor);
+    setColorError('');
   };
 
   const handleDifficultySelect = (selectedDifficulty: string) => {
     setDifficulty(selectedDifficulty);
+    setDifficultyError('');
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!playerXName || !color || !difficulty) {
-      alert('Please fill in all fields!');
-      return;
+    let hasError = false;
+
+    if (!playerXName) {
+      setPlayerXNameError('Please enter a name.');
+      hasError = true;
+    } else {
+      setPlayerXNameError('');
     }
+
+    if (!color) {
+      setColorError('Please select a color.');
+      hasError = true;
+    } else {
+      setColorError('');
+    }
+
+    if (!difficulty) {
+      setDifficultyError('Please select a difficulty.');
+      hasError = true;
+    } else {
+      setDifficultyError('');
+    }
+
+
+
+
+    if (hasError) return;
 
     navigate('/game', {
       state: { playerXName, color, difficulty, isComputerPlayerO: true },
@@ -44,6 +72,7 @@ const PlayerVsComputer: React.FC = () => {
             placeholder="Enter player name"
             className="player-name-input"
           />
+          {playerXNameError && <p className="error-message">{playerXNameError}</p>}
 
           <h3 className="color-selection-heading">Choose your Color</h3>
           <div className="color-options">
@@ -64,6 +93,7 @@ const PlayerVsComputer: React.FC = () => {
               Yellow
             </button>
           </div>
+          {colorError && <p className="error-message">{colorError}</p>}
 
           <h3 className="difficulty-selection-heading">Choose Difficulty</h3>
           <div className="difficulty-options">
@@ -82,7 +112,7 @@ const PlayerVsComputer: React.FC = () => {
               Hard
             </button>
           </div>
-
+          {difficultyError && <p className="error-message">{difficultyError}</p>}
           <button type="submit" className="start-game-button">
             Start Game
           </button>

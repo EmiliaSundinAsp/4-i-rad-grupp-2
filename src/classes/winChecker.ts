@@ -16,14 +16,14 @@ export default class WinChecker {
         if (this.boardState[newRow][newCol] === symbol) {
           positions.push([newRow, newCol]);
         } else {
-          return null; // Om någon position inte matchar, returnera null
+          return null;
         }
       } else {
-        return null; // Om det är utanför brädets gränser
+        return null;
       }
     }
 
-    // Om vi har samlat fyra positioner, returnera dem
+
     return positions.length === 4 ? positions : null;
   }
 

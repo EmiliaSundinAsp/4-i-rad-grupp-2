@@ -13,6 +13,11 @@ const LoginComponent: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!username || !password) {
+      setError('Please enter both username and password.');
+      return;
+    }
+
     try {
 
       const response = await fetch('http://localhost:5001/api/login', {
@@ -47,11 +52,11 @@ const LoginComponent: React.FC = () => {
         <form onSubmit={handleLogin}>
           <div>
             <label htmlFor="login-username">Username:</label>
-            <input type="text" id="login-username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <input type="text" id="login-username" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
           <div>
             <label htmlFor="login-password">Password:</label>
-            <input type="password" id="login-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input type="password" id="login-password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div>
             <button className="login-button" type="submit">Log in</button>
@@ -62,7 +67,7 @@ const LoginComponent: React.FC = () => {
             </Link>
           </div>
           <div>
-            {error && <p>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
           </div>
         </form>
       </div>

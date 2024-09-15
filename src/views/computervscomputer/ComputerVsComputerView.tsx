@@ -6,6 +6,8 @@ import './ComputerVsComputerView.css';
 const ComputerVsComputer: React.FC = () => {
   const [computer1Difficulty, setComputer1Difficulty] = useState<string>('');
   const [computer2Difficulty, setComputer2Difficulty] = useState<string>('');
+  const [difficultyErrorCompOne, setDifficultyErrorCompOne] = useState<string>(''); const [difficultyErrorCompTwo, setDifficultyErrorCompTwo] = useState<string>('');
+
 
   const navigate = useNavigate();
 
@@ -22,8 +24,19 @@ const ComputerVsComputer: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!computer1Difficulty || !computer2Difficulty) {
-      alert('Please select difficulties for both computers!');
+    let hasError = false;
+
+    if (!computer1Difficulty) {
+      setDifficultyErrorCompOne('Please select a difficulty for Computer 1.');
+      hasError = true;
+    }
+
+    if (!computer2Difficulty) {
+      setDifficultyErrorCompTwo('Please select a difficulty for Computer 2.');
+      hasError = true;
+    }
+
+    if (hasError) {
       return;
     }
 
@@ -56,7 +69,7 @@ const ComputerVsComputer: React.FC = () => {
               Hard
             </button>
           </div>
-
+          {difficultyErrorCompOne && <p className="error-message">{difficultyErrorCompOne}</p>}
           <h3 className="difficulty-selection-heading">Choose Difficulty for <span className="red-text">Computer 2</span></h3>
           <div className="difficulty-options">
             <button
@@ -74,7 +87,7 @@ const ComputerVsComputer: React.FC = () => {
               Hard
             </button>
           </div>
-
+          {difficultyErrorCompTwo && <p className="error-message">{difficultyErrorCompTwo}</p>}
           <button type="submit" className="start-game-button">
             Start Game
           </button>
