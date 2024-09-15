@@ -275,7 +275,7 @@ const Game: React.FC = () => {
 
 
           <div className='right-column'>
-            <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} winningPositions={winningPositions} errorMessage={errorMessage} /></div>
+            <Board boardState={boardState} onCellClick={handleCellClick} winningPositions={winningPositions} errorMessage={errorMessage ?? undefined} />
 
           </div>
 
