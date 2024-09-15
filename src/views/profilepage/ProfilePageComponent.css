@@ -1,0 +1,113 @@
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #A1A2A5;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  margin-top: 70px;
+}
+
+.profile-container h2 {
+  font-size: 38px;
+  -webkit-text-stroke: 2px blue;
+}
+
+.profile-container label {
+  font-size: 25px;
+  margin: 5px;
+}
+
+.profile-container input {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.profile-container div {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-button {
+  padding: 15px 30px;
+  border-radius: 8px;
+  background-color: #6c757d;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-3px);
+
+}
+
+.profile-button:active {
+  transform: translateY(1px);
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover; 
+  border-radius: 50%; 
+  border: 2px solid black; 
+}
+
+.save-button {
+  padding: 15px 30px;
+  border-radius: 8px;
+  background-color: #6c757d;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-3px);
+
+}
+
+.save-button:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 800px) {
+  .profile-container h2 {
+  font-size: 28px;
+  -webkit-text-stroke: 0.2px blue;
+}
+.profile-container label {
+  font-size: 20px;
+  margin: 5px;
+}
+.profile-button, .save-button {
+  padding: 10px 15px;
+  font-size: 13px;
+  font-weight: normal;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+}
