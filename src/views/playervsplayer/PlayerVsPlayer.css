@@ -73,6 +73,10 @@
 
 }
 
+.error-message {
+  width: auto;
+}
+
 @media (max-width:800px) {
   .logo {
   height: 4em;
