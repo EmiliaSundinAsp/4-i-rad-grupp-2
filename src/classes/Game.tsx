@@ -19,7 +19,6 @@ const Game: React.FC = () => {
 
 
   const difficulty = state?.difficulty || 'easy';
-  const isComputerPlayer = state?.isComputerPlayer || false;
   const isComputerPlayerX = state?.isComputerPlayerX || false;
   const isComputerPlayerO = state?.isComputerPlayerO || false;
 
@@ -276,7 +275,7 @@ const Game: React.FC = () => {
 
 
           <div className='right-column'>
-            <div className='board-container'><Board boardState={boardState} onCellClick={handleCellClick} winningPositions={winningPositions} errorMessage={errorMessage} /></div>
+            <Board boardState={boardState} onCellClick={handleCellClick} winningPositions={winningPositions} errorMessage={errorMessage ?? undefined} />
 
           </div>
 
